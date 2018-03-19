@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>RegisterDialog</class>
+ <widget class="QDialog" name="RegisterDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>598</width>
+    <height>445</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QWidget" name="layoutWidget_4">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>50</y>
+     <width>251</width>
+     <height>102</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLabel" name="userNameLabel">
+        <property name="text">
+         <string>用户名</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="passwdLabel">
+        <property name="text">
+         <string>密码</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="poliNumLabel">
+        <property name="text">
+         <string>警号</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="dutyLabel">
+        <property name="text">
+         <string>人员职务</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_5">
+      <item>
+       <widget class="QLineEdit" name="userNameLineEdit">
+        <property name="placeholderText">
+         <string>数字、字母，长度3-20位</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="passwdLineEdit">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Password</enum>
+        </property>
+        <property name="placeholderText">
+         <string>请输入密码，长度为8-16位</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="poliNumLineEdit">
+        <property name="placeholderText">
+         <string>可不填</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="dutyLineEdit">
+        <property name="placeholderText">
+         <string>长度为0-20位，可不填</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>180</y>
+     <width>371</width>
+     <height>152</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_3">
+    <item>
+     <widget class="QComboBox" name="questionComboBox">
+      <item>
+       <property name="text">
+        <string>您的所属单位？</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>您的生日？</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>您的姓名？</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>您所上的大学？</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>您父母的生日？</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="questionLineEdit1">
+      <property name="placeholderText">
+       <string>请输入答案，空表示不设置该项密保</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QComboBox" name="questionComboBox2">
+      <item>
+       <property name="text">
+        <string>您的所属单位？</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>您的生日？</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>您的姓名？</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>您所上的大学？</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>您父母的生日？</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="questionLineEdit2">
+      <property name="placeholderText">
+       <string>请输入答案，空表示不设置该项密保</string>
+      </property>
+      <property name="cursorMoveStyle">
+       <enum>Qt::LogicalMoveStyle</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QComboBox" name="questionComboBox3">
+      <item>
+       <property name="text">
+        <string>您的所属单位？</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>您的生日？</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>您的姓名？</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>您所上的大学？</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>您父母的生日？</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="questionLineEdit3">
+      <property name="placeholderText">
+       <string>请输入答案，空表示不设置该项密保</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget_3">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>50</y>
+     <width>261</width>
+     <height>102</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <widget class="QLabel" name="checkCompanyLabel">
+        <property name="text">
+         <string>检查单位</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="passwdAgainLabel">
+        <property name="text">
+         <string>重复密码</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="nameLabel">
+        <property name="text">
+         <string>真实姓名</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="phoneLabel">
+        <property name="text">
+         <string>联系电话</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QComboBox" name="comboBox"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="passwdAgainLineEdit">
+        <property name="echoMode">
+         <enum>QLineEdit::Password</enum>
+        </property>
+        <property name="placeholderText">
+         <string>请再次输入相同的密码</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="nameLineEdit">
+        <property name="placeholderText">
+         <string>中英文，长度为0-20位</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="phoneLineEdit">
+        <property name="placeholderText">
+         <string>可不填</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QPushButton" name="registerButton">
+   <property name="geometry">
+    <rect>
+     <x>161</x>
+     <y>361</y>
+     <width>75</width>
+     <height>38</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 87 16pt &quot;Arial Black&quot;;</string>
+   </property>
+   <property name="text">
+    <string>注册</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="cancelButton">
+   <property name="geometry">
+    <rect>
+     <x>335</x>
+     <y>361</y>
+     <width>75</width>
+     <height>38</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 87 16pt &quot;Arial Black&quot;;</string>
+   </property>
+   <property name="text">
+    <string>取消</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,1767 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>editSecDialog</class>
+ <widget class="QDialog" name="editSecDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>485</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QScrollArea" name="scrollArea">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>600</width>
+     <height>485</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="widgetResizable">
+    <bool>true</bool>
+   </property>
+   <widget class="QWidget" name="scrollAreaWidgetContents">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>581</width>
+      <height>1260</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>1260</height>
+     </size>
+    </property>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>61</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>开发语言：</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>70</y>
+       <width>61</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>建站平台：</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>120</y>
+       <width>61</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>中间件：</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="languageCheckBox_1">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>22</y>
+       <width>38</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>JSP</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="languageCheckBox_2">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>22</y>
+       <width>38</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>PHP</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="languageCheckBox_3">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>22</y>
+       <width>48</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>HTML</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="languageCheckBox_4">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>22</y>
+       <width>71</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>ASP.NET</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="languageCheckBox_5">
+     <property name="geometry">
+      <rect>
+       <x>286</x>
+       <y>22</y>
+       <width>41</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>ASP</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="languageCheckBox_6">
+     <property name="geometry">
+      <rect>
+       <x>330</x>
+       <y>22</y>
+       <width>46</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>其他</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="languageLineEdit">
+     <property name="geometry">
+      <rect>
+       <x>378</x>
+       <y>20</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="platformRadio_1">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>72</y>
+       <width>92</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>自行开发平台</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="platformRadio_2">
+     <property name="geometry">
+      <rect>
+       <x>185</x>
+       <y>72</y>
+       <width>38</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>TRS</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="platformRadio_3">
+     <property name="geometry">
+      <rect>
+       <x>224</x>
+       <y>72</y>
+       <width>64</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>织梦CMS</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="platformRadio_4">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>72</y>
+       <width>45</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>其他</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="platformLineEdit">
+     <property name="geometry">
+      <rect>
+       <x>338</x>
+       <y>70</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="middleCheckBox_1">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>122</y>
+       <width>85</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>其他，版本：</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="middleLineEdit_1">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>120</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>120</y>
+       <width>271</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>，如中间件具有远程管理接口，是否使用默认管理</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_5">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>150</y>
+       <width>31</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>口令：</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="oneRadio_1">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>152</y>
+       <width>36</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>是</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="oneRadio_2">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>152</y>
+       <width>35</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>否</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="oneRadio_3">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>152</y>
+       <width>121</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>无远程管理接口</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_6">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>180</y>
+       <width>271</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>，如中间件具有远程管理接口，是否使用默认管理</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_7">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>210</y>
+       <width>31</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>口令：</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="twoRadio_3">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>212</y>
+       <width>121</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>无远程管理接口</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="twoRadio_1">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>212</y>
+       <width>36</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>是</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="twoRadio_2">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>212</y>
+       <width>35</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>否</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="middleCheckBox_2">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>182</y>
+       <width>85</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>IIS，版本：</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="middleLineEdit_2">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>180</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_8">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>240</y>
+       <width>271</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>，如中间件具有远程管理接口，是否使用默认管理</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_9">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>270</y>
+       <width>31</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>口令：</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="threeRadio_3">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>272</y>
+       <width>121</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>无远程管理接口</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="threeRadio_1">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>272</y>
+       <width>36</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>是</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="threeRadio_2">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>272</y>
+       <width>35</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>否</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="middleCheckBox_3">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>242</y>
+       <width>101</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Apache，版本：</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="middleLineEdit_3">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>240</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_10">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>300</y>
+       <width>271</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>，如中间件具有远程管理接口，是否使用默认管理</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_11">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>330</y>
+       <width>31</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>口令：</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="fourRadio_3">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>332</y>
+       <width>121</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>无远程管理接口</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="fourRadio_1">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>332</y>
+       <width>36</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>是</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="fourRadio_2">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>332</y>
+       <width>35</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>否</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="middleCheckBox_4">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>302</y>
+       <width>101</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Tomcat，版本：</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="middleLineEdit_4">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>300</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_12">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>360</y>
+       <width>271</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>，如中间件具有远程管理接口，是否使用默认管理</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_13">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>390</y>
+       <width>31</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>口令：</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="fiveRadio_3">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>392</y>
+       <width>121</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>无远程管理接口</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="fiveRadio_1">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>392</y>
+       <width>36</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>是</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="fiveRadio_2">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>392</y>
+       <width>35</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>否</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="middleCheckBox_5">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>362</y>
+       <width>91</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Jboss，版本：</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="middleLineEdit_5">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>360</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_14">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>448</y>
+       <width>61</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>管理口令：</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_15">
+     <property name="geometry">
+      <rect>
+       <x>330</x>
+       <y>418</y>
+       <width>271</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>，如中间件具有远程管理接口，是否使用默认</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="sixRadio_1">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>450</y>
+       <width>36</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>是</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="middleCheckBox_6">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>420</y>
+       <width>121</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Websphere，版本：</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="middleLineEdit_6">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>418</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="sixRadio_2">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>450</y>
+       <width>35</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>否</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="sixRadio_3">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>450</y>
+       <width>121</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>无远程管理接口</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="buttonLabel">
+     <property name="geometry">
+      <rect>
+       <x>460</x>
+       <y>1210</y>
+       <width>75</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="middleCheckBox_7">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>480</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Weblogic，版本：</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="middleLineEdit_7">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>480</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_16">
+     <property name="geometry">
+      <rect>
+       <x>320</x>
+       <y>480</y>
+       <width>251</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>，如中间件具有远程管理接口，是否使用默认</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_17">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>510</y>
+       <width>61</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>管理口令：</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="sevenRadio_3">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>513</y>
+       <width>121</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>无远程管理接口</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="sevenRadio_1">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>513</y>
+       <width>36</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>是</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="sevenRadio_2">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>513</y>
+       <width>35</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>否</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_18">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>550</y>
+       <width>61</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>数据库：</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="dataCheckBox_1">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>553</y>
+       <width>91</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>MySQL，版本：</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="dataLineEdit_1">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>550</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_19">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>550</y>
+       <width>141</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>，是否使用默认用户口令：</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="dataNoRadio_1">
+     <property name="geometry">
+      <rect>
+       <x>490</x>
+       <y>553</y>
+       <width>35</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>否</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="dataYesRadio_1">
+     <property name="geometry">
+      <rect>
+       <x>450</x>
+       <y>553</y>
+       <width>36</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>是</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="dataCheckBox_2">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>583</y>
+       <width>121</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>SQL Server，版本：</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="dataYesRadio_2">
+     <property name="geometry">
+      <rect>
+       <x>480</x>
+       <y>583</y>
+       <width>36</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>是</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_39">
+     <property name="geometry">
+      <rect>
+       <x>330</x>
+       <y>580</y>
+       <width>141</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>，是否使用默认用户口令：</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="dataNoRadio_2">
+     <property name="geometry">
+      <rect>
+       <x>520</x>
+       <y>583</y>
+       <width>35</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>否</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="dataLineEdit_2">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>580</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="dataCheckBox_3">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>613</y>
+       <width>101</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Oracle，版本：</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="dataYesRadio_3">
+     <property name="geometry">
+      <rect>
+       <x>460</x>
+       <y>613</y>
+       <width>36</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>是</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_40">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>610</y>
+       <width>141</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>，是否使用默认用户口令：</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="dataNoRadio_3">
+     <property name="geometry">
+      <rect>
+       <x>500</x>
+       <y>613</y>
+       <width>35</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>否</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="dataLineEdit_3">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>610</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="dataCheckBox_4">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>643</y>
+       <width>101</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Sybase，版本：</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="dataYesRadio_4">
+     <property name="geometry">
+      <rect>
+       <x>460</x>
+       <y>643</y>
+       <width>36</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>是</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_41">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>640</y>
+       <width>141</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>，是否使用默认用户口令：</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="dataNoRadio_4">
+     <property name="geometry">
+      <rect>
+       <x>500</x>
+       <y>643</y>
+       <width>35</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>否</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="dataLineEdit_4">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>640</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="dataCheckBox_5">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>673</y>
+       <width>91</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>DB2，版本：</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="dataYesRadio_5">
+     <property name="geometry">
+      <rect>
+       <x>440</x>
+       <y>673</y>
+       <width>36</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>是</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_42">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>670</y>
+       <width>141</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>，是否使用默认用户口令：</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="dataNoRadio_5">
+     <property name="geometry">
+      <rect>
+       <x>480</x>
+       <y>673</y>
+       <width>35</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>否</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="dataLineEdit_5">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>670</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="dataCheckBox_6">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>703</y>
+       <width>91</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>MSDE，版本：</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="dataYesRadio_6">
+     <property name="geometry">
+      <rect>
+       <x>450</x>
+       <y>703</y>
+       <width>36</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>是</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_43">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>700</y>
+       <width>141</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>，是否使用默认用户口令：</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="dataNoRadio_6">
+     <property name="geometry">
+      <rect>
+       <x>490</x>
+       <y>703</y>
+       <width>35</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>否</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="dataLineEdit_6">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>700</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="dataCheckBox_7">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>733</y>
+       <width>97</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Access，版本：</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="dataYesRadio_7">
+     <property name="geometry">
+      <rect>
+       <x>460</x>
+       <y>733</y>
+       <width>36</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>是</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_44">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>730</y>
+       <width>141</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>，是否使用默认用户口令：</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="dataNoRadio_7">
+     <property name="geometry">
+      <rect>
+       <x>500</x>
+       <y>733</y>
+       <width>35</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>否</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="dataLineEdit_7">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>730</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_45">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>810</y>
+       <width>61</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>服务器：</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="serverCheckBox_1">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>813</y>
+       <width>176</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Windows 2000 Server，版本：</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="serverLineEdit_1">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>810</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="serverCheckBox_2">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>843</y>
+       <width>176</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Windows 2003 Server，版本：</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="serverLineEdit_2">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>840</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="serverCheckBox_3">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>873</y>
+       <width>176</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Windows 2008 Server，版本：</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="serverLineEdit_3">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>870</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="serverCheckBox_4">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>903</y>
+       <width>176</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Windows 2012 Server，版本：</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="serverLineEdit_4">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>900</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="serverCheckBox_5">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>933</y>
+       <width>176</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Windows 2016 Server，版本：</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="serverLineEdit_5">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>930</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="serverCheckBox_6">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>963</y>
+       <width>91</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Linux，版本：</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="serverLineEdit_6">
+     <property name="geometry">
+      <rect>
+       <x>186</x>
+       <y>960</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="serverCheckBox_7">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>993</y>
+       <width>51</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>其他：</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="serverLineEdit_7">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>990</y>
+       <width>161</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_46">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>1025</y>
+       <width>61</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>远程维护方式：</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="dataLineEdit_8">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>760</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="dataCheckBox_8">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>763</y>
+       <width>88</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>其他，版本：</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="dataYesRadio_8">
+     <property name="geometry">
+      <rect>
+       <x>450</x>
+       <y>763</y>
+       <width>36</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>是</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_47">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>760</y>
+       <width>141</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>，是否使用默认用户口令：</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="dataNoRadio_8">
+     <property name="geometry">
+      <rect>
+       <x>490</x>
+       <y>763</y>
+       <width>35</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>否</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="ycCheckBox_1">
+     <property name="geometry">
+      <rect>
+       <x>94</x>
+       <y>1033</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>远程桌面，版本：</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="ycLineEdit_1">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>1030</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="ycCheckBox_2">
+     <property name="geometry">
+      <rect>
+       <x>94</x>
+       <y>1070</y>
+       <width>121</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>TeamViewer，版本：</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="ycLineEdit_2">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>1067</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="ycCheckBox_3">
+     <property name="geometry">
+      <rect>
+       <x>94</x>
+       <y>1103</y>
+       <width>91</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>putty，版本：</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="ycLineEdit_3">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>1100</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="ycCheckBox_4">
+     <property name="geometry">
+      <rect>
+       <x>94</x>
+       <y>1140</y>
+       <width>101</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>WinSCP，版本：</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="ycLineEdit_4">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>1137</y>
+       <width>113</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="ycLineEdit_5">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>1170</y>
+       <width>161</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="ycCheckBox_5">
+     <property name="geometry">
+      <rect>
+       <x>94</x>
+       <y>1173</y>
+       <width>51</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>其他：</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

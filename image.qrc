@@ -1,0 +1,46 @@
+<RCC>
+    <qresource prefix="/icon">
+        <file>image/search.png</file>
+        <file>image/home.png</file>
+        <file>image/manage.png</file>
+        <file>image/report.png</file>
+        <file>image/task.png</file>
+        <file>image/asterisk.png</file>
+        <file>image/dispose_1.png</file>
+        <file>image/home_1.png</file>
+        <file>image/other_1.png</file>
+        <file>image/report_1.png</file>
+        <file>image/task_1.png</file>
+        <file>image/user.png</file>
+        <file>image/webscan_1.png</file>
+        <file>image/main.png</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file>image/1.png</file>
+        <file>image/2.png</file>
+        <file>image/3.png</file>
+        <file>image/4.png</file>
+        <file>image/addpage.png</file>
+        <file>image/subpage.png</file>
+        <file>image/tiao.png</file>
+    </qresource>
+    <qresource prefix="/tool">
+        <file>image/tool/eydm.png</file>
+        <file>image/tool/rzfx.png</file>
+        <file>image/tool/rzqg.png</file>
+        <file>image/tool/sjkaq.png</file>
+        <file>image/tool/sqlzr.png</file>
+        <file>image/tool/wjhf.png</file>
+        <file>image/tool/wzaq.png</file>
+        <file>image/tool/xtld.png</file>
+        <file>image/tool/zbgj.png</file>
+        <file>image/tool/zjbd.png</file>
+        <file>image/tool/zjmm.png</file>
+    </qresource>
+    <qresource prefix="/combox">
+        <file>image/combox/arrow.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>image/load.gif</file>
+    </qresource>
+</RCC>
