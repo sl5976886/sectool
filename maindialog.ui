@@ -404,7 +404,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
+        <y>-24</y>
         <width>885</width>
         <height>1000</height>
        </rect>
@@ -453,14 +453,9 @@
          <x>10</x>
          <y>95</y>
          <width>871</width>
-         <height>381</height>
+         <height>242</height>
         </rect>
        </property>
-       <row>
-        <property name="text">
-         <string/>
-        </property>
-       </row>
        <row>
         <property name="text">
          <string/>
@@ -779,23 +774,6 @@
        <item row="7" column="2">
         <property name="text">
          <string>电子邮箱：</string>
-        </property>
-        <property name="background">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>102</red>
-           <green>102</green>
-           <blue>102</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="flags">
-         <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-        </property>
-       </item>
-       <item row="8" column="0">
-        <property name="text">
-         <string>事件截图</string>
         </property>
         <property name="background">
          <brush brushstyle="SolidPattern">

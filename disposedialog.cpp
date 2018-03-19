@@ -115,10 +115,10 @@ disposeDialog::~disposeDialog()
 void disposeDialog::safeTableWidgetShow()
 {
     ui->safeTableWidget->setColumnWidth(0,137);
-    ui->safeTableWidget->setColumnWidth(1,230);
+    ui->safeTableWidget->setColumnWidth(1,223);
     ui->safeTableWidget->setColumnWidth(2,160);
-    ui->safeTableWidget->setColumnWidth(3,230);
-    for(int i=0;i<11;i++)
+    ui->safeTableWidget->setColumnWidth(3,224);
+    for(int i=0;i<14;i++)
     {
         if(i==0||i==8)
         {
@@ -132,6 +132,7 @@ void disposeDialog::safeTableWidgetShow()
     ui->safeTableWidget->setSpan(0,0,1,4);
     ui->safeTableWidget->setSpan(8,0,1,4);
     ui->safeTableWidget->setSpan(7,1,1,3);
+    ui->safeTableWidget->setSpan(11,1,1,3);
     QTableWidgetItem *item = new QTableWidgetItem(QString("网站基本情况"));
     item->setBackgroundColor(QColor(0,0,0));
     item->setForeground(QColor(255,255,255));
@@ -169,6 +170,11 @@ void disposeDialog::safeTableWidgetShow()
         QString strOri = query.value(15).toString();
         QString strAtt = query.value(16).toString();
         QDateTime dateTime2 = query.value(17).toDateTime();
+        QString strAtta = query.value(18).toString();
+        QString strEffect = query.value(19).toString();
+        QString strTimeAndPlace = query.value(20).toString();
+        QString strDisCom = query.value(21).toString();
+        QString strDisPerson = query.value(22).toString();
 
         QTableWidgetItem *item1 = new QTableWidgetItem(strName);
         item1->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
@@ -222,6 +228,26 @@ void disposeDialog::safeTableWidgetShow()
         item13->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
         ui->safeTableWidget->setItem(7,1,item13);
 
+        QTableWidgetItem *item14 = new QTableWidgetItem(strAtta);
+        item14->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+        ui->safeTableWidget->setItem(11,1,item14);
+
+        QTableWidgetItem *item15 = new QTableWidgetItem(strEffect);
+        item15->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+        ui->safeTableWidget->setItem(12,1,item15);
+
+        QTableWidgetItem *item16 = new QTableWidgetItem(strTimeAndPlace);
+        item16->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+        ui->safeTableWidget->setItem(12,3,item16);
+
+        QTableWidgetItem *item17 = new QTableWidgetItem(strDisCom);
+        item17->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+        ui->safeTableWidget->setItem(13,1,item17);
+
+        QTableWidgetItem *item18 = new QTableWidgetItem(strDisPerson);
+        item18->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+        ui->safeTableWidget->setItem(13,3,item18);
+
         if(dateTime.isValid())
         {
             date_1 = new QDateEdit(this);
@@ -236,13 +262,13 @@ void disposeDialog::safeTableWidgetShow()
             ui->safeTableWidget->setCellWidget(9,1,date_1);
         }
 
-        QTableWidgetItem *item14 = new QTableWidgetItem(strOri);
-        item14->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->safeTableWidget->setItem(9,3,item14);
+        QTableWidgetItem *item19 = new QTableWidgetItem(strOri);
+        item19->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+        ui->safeTableWidget->setItem(9,3,item19);
 
-        QTableWidgetItem *item15 = new QTableWidgetItem(strAtt);
-        item15->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->safeTableWidget->setItem(10,1,item15);
+        QTableWidgetItem *item20 = new QTableWidgetItem(strAtt);
+        item20->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+        ui->safeTableWidget->setItem(10,1,item20);
 
         if(dateTime2.isValid())
         {
@@ -1904,16 +1930,23 @@ void disposeDialog::on_recordButton_2_clicked()
     time = date_2->dateTime().toTime_t();
     GetAsciiTime(time,strTime2,128);
 
+    QString strDamage = ui->safeTableWidget->item(11,1)->text();
+    QString strEffect = ui->safeTableWidget->item(12,1)->text();
+    QString strTimeAndPlace = ui->safeTableWidget->item(12,3)->text();
+    QString strDisCom = ui->safeTableWidget->item(13,1)->text();
+    QString strDisPer = ui->safeTableWidget->item(13,3)->text();
+
     QSqlQuery query;
     QString strSql = QString("UPDATE safe_record_form SET company_name='%1',contact_person='%2',"
                                             "system_name='%3',filing_level='%4',website_domain='%5',ip_address='%6',"
                                             "service_content='%7',datebase_content_num='%8',operating_name_version='%9',"
                                             "server_name='%10',datebase_name='%11',third_party_app='%12'"
                                             ",protect_equioment='%13',discovery_time='%14',"
-                                            "discovery_source='%15',damage_degree='%16',attack_time='%17' WHERE id=%18")
+                                            "discovery_source='%15',damage_degree='%16',attack_time='%17',sys_damage='%18',"
+                             "user_effect='%19',dis_timeplace='%20',dis_company='%21',dis_person='%22' WHERE id=%23")
             .arg(strName).arg(strContact).arg(strSystem).arg(strLevel).arg(strWeb).arg(strIp).arg(strService).arg(strData)
             .arg(strOperate).arg(strServer).arg(strData2).arg(strThird).arg(strTech).arg(strTime1).arg(strOri).arg(strAtt)
-            .arg(strTime2).arg(g_task_id);
+            .arg(strTime2).arg(strDamage).arg(strEffect).arg(strTimeAndPlace).arg(strDisCom).arg(strDisPer).arg(g_task_id);
     bool ok = query.exec(strSql);
     if(!ok)
     {
@@ -2011,6 +2044,7 @@ void disposeDialog::on_saveButton_clicked()
     QString strProcess = edit->toPlainText();
     QString strReason = edit_2->toPlainText();
     QString strResult = edit_3->toPlainText();
+    QString strOther = ui->otherTextEdit->toPlainText();
 
     QSqlQuery query;
     QString strSql = QString("SELECT * FROM website_condition WHERE id=%1").arg(g_task_id);
@@ -2022,9 +2056,9 @@ void disposeDialog::on_saveButton_clicked()
     int count = query.size();
     if(count==0)
     {
-        strSql = QString("INSERT INTO website_condition(id,loopholes,process,reason,result) VALUES"
-                                                "(%1,'%2','%3','%4','%5')").arg(g_task_id).arg(strHole).arg(strProcess)
-                                                .arg(strReason).arg(strResult);
+        strSql = QString("INSERT INTO website_condition(id,loopholes,process,reason,result,other) VALUES"
+                                                "(%1,'%2','%3','%4','%5','%6')").arg(g_task_id).arg(strHole).arg(strProcess)
+                                                .arg(strReason).arg(strResult).arg(strOther);
         ok = query.exec(strSql);
         if(!ok)
         {
@@ -2043,8 +2077,8 @@ void disposeDialog::on_saveButton_clicked()
     else if(count==1)
     {
         strSql = QString("UPDATE website_condition SET loopholes='%1',process='%2',reason='%3'"
-                                        ",result='%4' WHERE id=%5").arg(strHole).arg(strProcess)
-                                        .arg(strReason).arg(strResult).arg(g_task_id);
+                                        ",result='%4',other='%5' WHERE id=%6").arg(strHole).arg(strProcess)
+                                        .arg(strReason).arg(strResult).arg(strOther).arg(g_task_id);
         ok = query.exec(strSql);
         if(!ok)
         {

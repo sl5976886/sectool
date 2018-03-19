@@ -26,7 +26,7 @@
     <string notr="true"/>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -73,617 +73,813 @@
         <string>安全案事件调查处置情况记录简表</string>
        </property>
       </widget>
-      <widget class="QTableWidget" name="safeTableWidget">
+      <widget class="QScrollArea" name="scrollArea">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>50</y>
-         <width>759</width>
-         <height>419</height>
+         <width>762</width>
+         <height>469</height>
         </rect>
        </property>
-       <property name="autoScroll">
+       <property name="widgetResizable">
         <bool>true</bool>
        </property>
-       <property name="gridStyle">
-        <enum>Qt::CustomDashLine</enum>
-       </property>
-       <property name="sortingEnabled">
-        <bool>false</bool>
-       </property>
-       <property name="rowCount">
-        <number>11</number>
-       </property>
-       <property name="columnCount">
-        <number>4</number>
-       </property>
-       <attribute name="horizontalHeaderVisible">
-        <bool>false</bool>
-       </attribute>
-       <attribute name="horizontalHeaderMinimumSectionSize">
-        <number>10</number>
-       </attribute>
-       <attribute name="verticalHeaderVisible">
-        <bool>false</bool>
-       </attribute>
-       <attribute name="verticalHeaderMinimumSectionSize">
-        <number>10</number>
-       </attribute>
-       <row/>
-       <row/>
-       <row/>
-       <row/>
-       <row/>
-       <row/>
-       <row/>
-       <row/>
-       <row/>
-       <row/>
-       <row/>
-       <column/>
-       <column/>
-       <column/>
-       <column/>
-       <item row="0" column="0">
-        <property name="text">
-         <string>网站基本情况：</string>
-        </property>
-        <property name="background">
-         <brush brushstyle="NoBrush">
-          <color alpha="255">
-           <red>102</red>
-           <green>102</green>
-           <blue>102</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="flags">
-         <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-        </property>
-       </item>
-       <item row="0" column="1">
-        <property name="text">
-         <string/>
-        </property>
-        <property name="flags">
-         <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-        </property>
-       </item>
-       <item row="0" column="2">
-        <property name="text">
-         <string/>
-        </property>
-        <property name="flags">
-         <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-        </property>
-       </item>
-       <item row="0" column="3">
-        <property name="text">
-         <string/>
-        </property>
-        <property name="flags">
-         <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-        </property>
-       </item>
-       <item row="1" column="0">
-        <property name="text">
-         <string>单位名称：</string>
-        </property>
-        <property name="background">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>102</red>
-           <green>102</green>
-           <blue>102</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="foreground">
-         <brush brushstyle="NoBrush">
-          <color alpha="255">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="flags">
-         <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-        </property>
-       </item>
-       <item row="1" column="2">
-        <property name="text">
-         <string>联系人及联系方式：</string>
-        </property>
-        <property name="background">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>102</red>
-           <green>102</green>
-           <blue>102</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="foreground">
-         <brush brushstyle="NoBrush">
-          <color alpha="255">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="flags">
-         <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-        </property>
-       </item>
-       <item row="2" column="0">
-        <property name="text">
-         <string>系统名称：</string>
-        </property>
-        <property name="background">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>102</red>
-           <green>102</green>
-           <blue>102</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="foreground">
-         <brush brushstyle="NoBrush">
-          <color alpha="255">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="flags">
-         <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-        </property>
-       </item>
-       <item row="2" column="2">
-        <property name="text">
-         <string>备案级别：</string>
-        </property>
-        <property name="background">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>102</red>
-           <green>102</green>
-           <blue>102</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="foreground">
-         <brush brushstyle="NoBrush">
-          <color alpha="255">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="flags">
-         <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-        </property>
-       </item>
-       <item row="3" column="0">
-        <property name="text">
-         <string>网站域名：</string>
-        </property>
-        <property name="background">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>102</red>
-           <green>102</green>
-           <blue>102</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="foreground">
-         <brush brushstyle="NoBrush">
-          <color alpha="255">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="flags">
-         <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-        </property>
-       </item>
-       <item row="3" column="2">
-        <property name="text">
-         <string>IP地址：</string>
-        </property>
-        <property name="background">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>102</red>
-           <green>102</green>
-           <blue>102</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="foreground">
-         <brush brushstyle="NoBrush">
-          <color alpha="255">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="flags">
-         <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-        </property>
-       </item>
-       <item row="4" column="0">
-        <property name="text">
-         <string>网站服务内容：</string>
-        </property>
-        <property name="background">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>102</red>
-           <green>102</green>
-           <blue>102</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="foreground">
-         <brush brushstyle="NoBrush">
-          <color alpha="255">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="flags">
-         <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-        </property>
-       </item>
-       <item row="4" column="2">
-        <property name="text">
-         <string>数据库内容及数量：</string>
-        </property>
-        <property name="background">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>102</red>
-           <green>102</green>
-           <blue>102</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="foreground">
-         <brush brushstyle="NoBrush">
-          <color alpha="255">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="flags">
-         <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-        </property>
-       </item>
-       <item row="5" column="0">
-        <property name="text">
-         <string>操作系统名称及版本：</string>
-        </property>
-        <property name="background">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>102</red>
-           <green>102</green>
-           <blue>102</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="foreground">
-         <brush brushstyle="NoBrush">
-          <color alpha="255">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="flags">
-         <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-        </property>
-       </item>
-       <item row="5" column="2">
-        <property name="text">
-         <string>网站服务器名称及版本：</string>
-        </property>
-        <property name="background">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>102</red>
-           <green>102</green>
-           <blue>102</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="foreground">
-         <brush brushstyle="NoBrush">
-          <color alpha="255">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="flags">
-         <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-        </property>
-       </item>
-       <item row="6" column="0">
-        <property name="text">
-         <string>数据库名称及版本：</string>
-        </property>
-        <property name="background">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>102</red>
-           <green>102</green>
-           <blue>102</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="foreground">
-         <brush brushstyle="NoBrush">
-          <color alpha="255">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="flags">
-         <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-        </property>
-       </item>
-       <item row="6" column="1">
-        <property name="text">
-         <string/>
-        </property>
-       </item>
-       <item row="6" column="2">
-        <property name="text">
-         <string>第三方应用系统名称及版本：</string>
-        </property>
-        <property name="background">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>102</red>
-           <green>102</green>
-           <blue>102</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="foreground">
-         <brush brushstyle="NoBrush">
-          <color alpha="255">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="flags">
-         <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-        </property>
-       </item>
-       <item row="7" column="0">
-        <property name="text">
-         <string>现有主要技术防护设备：</string>
-        </property>
-        <property name="background">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>102</red>
-           <green>102</green>
-           <blue>102</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="foreground">
-         <brush brushstyle="NoBrush">
-          <color alpha="255">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="flags">
-         <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-        </property>
-       </item>
-       <item row="7" column="1">
-        <property name="text">
-         <string/>
-        </property>
-       </item>
-       <item row="7" column="2">
-        <property name="text">
-         <string/>
-        </property>
-       </item>
-       <item row="7" column="3">
-        <property name="text">
-         <string/>
-        </property>
-       </item>
-       <item row="8" column="0">
-        <property name="text">
-         <string>事件基本情况</string>
-        </property>
-        <property name="background">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>102</red>
-           <green>102</green>
-           <blue>102</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="foreground">
-         <brush brushstyle="NoBrush">
-          <color alpha="255">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="flags">
-         <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-        </property>
-       </item>
-       <item row="8" column="1">
-        <property name="flags">
-         <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-        </property>
-       </item>
-       <item row="8" column="2">
-        <property name="flags">
-         <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-        </property>
-       </item>
-       <item row="8" column="3">
-        <property name="flags">
-         <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-        </property>
-       </item>
-       <item row="9" column="0">
-        <property name="text">
-         <string>发现时间</string>
-        </property>
-        <property name="background">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>102</red>
-           <green>102</green>
-           <blue>102</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="foreground">
-         <brush brushstyle="NoBrush">
-          <color alpha="255">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="flags">
-         <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-        </property>
-       </item>
-       <item row="9" column="2">
-        <property name="text">
-         <string>发现来源</string>
-        </property>
-        <property name="background">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>102</red>
-           <green>102</green>
-           <blue>102</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="foreground">
-         <brush brushstyle="NoBrush">
-          <color alpha="255">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="flags">
-         <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-        </property>
-       </item>
-       <item row="10" column="0">
-        <property name="text">
-         <string>系统数据破坏程度</string>
-        </property>
-        <property name="background">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>102</red>
-           <green>102</green>
-           <blue>102</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="foreground">
-         <brush brushstyle="NoBrush">
-          <color alpha="255">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="flags">
-         <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-        </property>
-       </item>
-       <item row="10" column="2">
-        <property name="text">
-         <string>遭受攻击时间</string>
-        </property>
-        <property name="background">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>102</red>
-           <green>102</green>
-           <blue>102</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="foreground">
-         <brush brushstyle="NoBrush">
-          <color alpha="255">
-           <red>255</red>
-           <green>255</green>
-           <blue>255</blue>
-          </color>
-         </brush>
-        </property>
-        <property name="flags">
-         <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-        </property>
-       </item>
-      </widget>
-      <widget class="QPushButton" name="recordButton_2">
-       <property name="geometry">
-        <rect>
-         <x>670</x>
-         <y>480</y>
-         <width>75</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
-       </property>
-       <property name="text">
-        <string>保存</string>
-       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents_2">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>-112</y>
+          <width>746</width>
+          <height>579</height>
+         </rect>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>579</height>
+         </size>
+        </property>
+        <widget class="QTableWidget" name="safeTableWidget">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>-1</y>
+           <width>746</width>
+           <height>538</height>
+          </rect>
+         </property>
+         <property name="autoScroll">
+          <bool>true</bool>
+         </property>
+         <property name="gridStyle">
+          <enum>Qt::CustomDashLine</enum>
+         </property>
+         <property name="sortingEnabled">
+          <bool>false</bool>
+         </property>
+         <property name="rowCount">
+          <number>14</number>
+         </property>
+         <property name="columnCount">
+          <number>4</number>
+         </property>
+         <attribute name="horizontalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="horizontalHeaderMinimumSectionSize">
+          <number>10</number>
+         </attribute>
+         <attribute name="verticalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="verticalHeaderMinimumSectionSize">
+          <number>10</number>
+         </attribute>
+         <row>
+          <property name="text">
+           <string/>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string/>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string/>
+          </property>
+         </row>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <column/>
+         <column/>
+         <column/>
+         <column/>
+         <item row="0" column="0">
+          <property name="text">
+           <string>网站基本情况：</string>
+          </property>
+         </item>
+         <item row="0" column="2">
+          <property name="text">
+           <string/>
+          </property>
+         </item>
+         <item row="1" column="0">
+          <property name="text">
+           <string>单位名称：</string>
+          </property>
+          <property name="background">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>102</red>
+             <green>102</green>
+             <blue>102</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="foreground">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </property>
+         </item>
+         <item row="1" column="2">
+          <property name="text">
+           <string>联系人及联系方式：</string>
+          </property>
+          <property name="background">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>102</red>
+             <green>102</green>
+             <blue>102</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="foreground">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </property>
+         </item>
+         <item row="2" column="0">
+          <property name="text">
+           <string>系统名称：</string>
+          </property>
+          <property name="background">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>102</red>
+             <green>102</green>
+             <blue>102</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="foreground">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </property>
+         </item>
+         <item row="2" column="2">
+          <property name="text">
+           <string>备案级别：</string>
+          </property>
+          <property name="background">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>102</red>
+             <green>102</green>
+             <blue>102</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="foreground">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </property>
+         </item>
+         <item row="3" column="0">
+          <property name="text">
+           <string>网站域名：</string>
+          </property>
+          <property name="background">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>102</red>
+             <green>102</green>
+             <blue>102</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="foreground">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="3" column="1">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="3" column="2">
+          <property name="text">
+           <string>IP地址：</string>
+          </property>
+          <property name="background">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>102</red>
+             <green>102</green>
+             <blue>102</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="foreground">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="3" column="3">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="4" column="0">
+          <property name="text">
+           <string>网站服务内容：</string>
+          </property>
+          <property name="background">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>102</red>
+             <green>102</green>
+             <blue>102</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="foreground">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="4" column="2">
+          <property name="text">
+           <string>数据库内容及数量：</string>
+          </property>
+          <property name="background">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>102</red>
+             <green>102</green>
+             <blue>102</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="foreground">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="5" column="0">
+          <property name="text">
+           <string>操作系统名称及版本：</string>
+          </property>
+          <property name="background">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>102</red>
+             <green>102</green>
+             <blue>102</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="foreground">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="5" column="2">
+          <property name="text">
+           <string>网站服务器名称及版本：</string>
+          </property>
+          <property name="background">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>102</red>
+             <green>102</green>
+             <blue>102</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="foreground">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="6" column="0">
+          <property name="text">
+           <string>数据库名称及版本：</string>
+          </property>
+          <property name="background">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>102</red>
+             <green>102</green>
+             <blue>102</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="foreground">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="6" column="2">
+          <property name="text">
+           <string>第三方应用系统名称及版本：</string>
+          </property>
+          <property name="background">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>102</red>
+             <green>102</green>
+             <blue>102</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="foreground">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="7" column="0">
+          <property name="text">
+           <string>现有主要技术防护设备：</string>
+          </property>
+          <property name="background">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>102</red>
+             <green>102</green>
+             <blue>102</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="foreground">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="7" column="2">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="background">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>102</red>
+             <green>102</green>
+             <blue>102</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="foreground">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="8" column="0">
+          <property name="text">
+           <string>事件基本情况</string>
+          </property>
+          <property name="background">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>102</red>
+             <green>102</green>
+             <blue>102</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="foreground">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="8" column="1">
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="8" column="2">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="background">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>102</red>
+             <green>102</green>
+             <blue>102</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="foreground">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="9" column="0">
+          <property name="text">
+           <string>发现时间</string>
+          </property>
+          <property name="background">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>102</red>
+             <green>102</green>
+             <blue>102</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="foreground">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="9" column="1">
+          <property name="text">
+           <string/>
+          </property>
+         </item>
+         <item row="9" column="2">
+          <property name="text">
+           <string>发现来源</string>
+          </property>
+          <property name="background">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>102</red>
+             <green>102</green>
+             <blue>102</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="foreground">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="10" column="0">
+          <property name="text">
+           <string>系统数据破坏程度</string>
+          </property>
+          <property name="background">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>102</red>
+             <green>102</green>
+             <blue>102</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="foreground">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="10" column="1">
+          <property name="text">
+           <string/>
+          </property>
+         </item>
+         <item row="10" column="2">
+          <property name="text">
+           <string>遭受攻击时间</string>
+          </property>
+          <property name="background">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>102</red>
+             <green>102</green>
+             <blue>102</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="foreground">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </property>
+         </item>
+         <item row="10" column="3">
+          <property name="text">
+           <string/>
+          </property>
+         </item>
+         <item row="11" column="0">
+          <property name="text">
+           <string>系统遭破坏程度</string>
+          </property>
+          <property name="background">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>102</red>
+             <green>102</green>
+             <blue>102</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="foreground">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="11" column="1">
+          <property name="text">
+           <string/>
+          </property>
+         </item>
+         <item row="11" column="2">
+          <property name="text">
+           <string/>
+          </property>
+         </item>
+         <item row="11" column="3">
+          <property name="text">
+           <string/>
+          </property>
+         </item>
+         <item row="12" column="0">
+          <property name="text">
+           <string>对系统用户影响</string>
+          </property>
+          <property name="background">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>102</red>
+             <green>102</green>
+             <blue>102</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="foreground">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="12" column="2">
+          <property name="text">
+           <string>处置时间及地点</string>
+          </property>
+          <property name="background">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>102</red>
+             <green>102</green>
+             <blue>102</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="foreground">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="13" column="0">
+          <property name="text">
+           <string>调查单位</string>
+          </property>
+          <property name="background">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>102</red>
+             <green>102</green>
+             <blue>102</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="foreground">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+         <item row="13" column="2">
+          <property name="text">
+           <string>调查人</string>
+          </property>
+          <property name="background">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>102</red>
+             <green>102</green>
+             <blue>102</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="foreground">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
+         </item>
+        </widget>
+        <widget class="QPushButton" name="recordButton_2">
+         <property name="geometry">
+          <rect>
+           <x>660</x>
+           <y>550</y>
+           <width>75</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+         </property>
+         <property name="text">
+          <string>保存</string>
+         </property>
+        </widget>
+       </widget>
       </widget>
      </widget>
      <widget class="QWidget" name="page_2">
@@ -2891,6 +3087,62 @@
      </property>
      <property name="text">
       <string>保存</string>
+     </property>
+    </widget>
+    <widget class="Line" name="line">
+     <property name="geometry">
+      <rect>
+       <x>365</x>
+       <y>50</y>
+       <width>1</width>
+       <height>181</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-color: rgb(220, 220, 220);
+background-color: rgb(220, 220, 220);</string>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_19">
+     <property name="geometry">
+      <rect>
+       <x>370</x>
+       <y>50</y>
+       <width>21</width>
+       <height>181</height>
+      </rect>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 10pt &quot;Agency FB&quot;;
+</string>
+     </property>
+     <property name="text">
+      <string>其他安全风险</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QTextEdit" name="otherTextEdit">
+     <property name="geometry">
+      <rect>
+       <x>390</x>
+       <y>65</y>
+       <width>361</width>
+       <height>151</height>
+      </rect>
+     </property>
+     <property name="placeholderText">
+      <string>一些其他安全威胁补充，如开启不必要的服务</string>
      </property>
     </widget>
    </widget>
