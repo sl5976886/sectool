@@ -75,13 +75,13 @@ void mainDialog::initTitleBar()
     QToolButton *closeButton = new QToolButton(this);  //关闭按钮
     QLabel *titleLabel = new QLabel(this);   //标题
     QLabel *iconLabel = new QLabel(this);  //图标
-    QObject::connect(minButton, SIGNAL(clicked()), this, SLOT(on_actionMinimize_triggered()));
-    QObject::connect(closeButton, SIGNAL(clicked()), this, SLOT(on_actionClose_triggered()));
+    QObject::connect(minButton, SIGNAL(clicked()), this, SLOT(Minimize_triggered()));
+    QObject::connect(closeButton, SIGNAL(clicked()), this, SLOT(Close_triggered()));
 
     //获取最小化、关闭按钮图标
     QPixmap minPix  = QPixmap(":/button/subtract.png");
     QPixmap closePix = QPixmap(":/button/close.png");
-    QPixmap iconPix = QPixmap(":/button/shield.png");
+    QPixmap iconPix = QPixmap(":/button/logo.png");
 
     //设置最小化、关闭按钮图标
     minButton->setIcon(minPix);
@@ -141,7 +141,7 @@ void mainDialog::mouseReleaseEvent(QMouseEvent *event)
     isMousePressed=false;
 }
 
-void mainDialog::on_actionMinimize_triggered()
+void mainDialog::Minimize_triggered()
 {
 //    ui->stackedWidget->setCurrentIndex(0);
 //    QWidget::hide();
@@ -151,7 +151,7 @@ void mainDialog::on_actionMinimize_triggered()
     }
 
 }
-void mainDialog::on_actionClose_triggered()
+void mainDialog::Close_triggered()
 {
     //系统自定义的窗口关闭函数
     close();
@@ -189,7 +189,6 @@ mainDialog::~mainDialog()
     query.exec(strSql);
     reportThread.wait();
     reportThread.stop();
-    //qDebug()<<"mainDialog uninit";
     delete ui;
 }
 
@@ -356,6 +355,7 @@ void mainDialog::basicTableShow()
     ui->basicTableWidget->setColumnWidth(3,314);
     ui->basicTableWidget->setSpan(8,1,8,3);
     ui->basicTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->basicTableWidget->setSelectionMode(QAbstractItemView::NoSelection);
     ui->basicTableWidget->horizontalHeader()->setVisible(false);
     ui->basicTableWidget->verticalHeader()->setVisible(false);
     QSqlQuery query;
@@ -369,7 +369,7 @@ void mainDialog::basicTableShow()
     {
         QString strEventName = query.value(11).toString();
         QDateTime time = query.value(12).toDateTime();
-        QString strTime = time.toString("yyyy-MM-dd hh:mm:ss");
+        QString strTime = time.toString("yyyy-MM-dd hh:mm");
         QString strLocation = query.value(13).toString();
         QString strCom = query.value(16).toString();
         QString strKind = query.value(14).toString();
@@ -583,7 +583,9 @@ void mainDialog::refresh_table_slot()
 
 void mainDialog::on_basicModifyButton_clicked()
 {
+    int mId = g_task_id;
     modifyDialog mdd(this);
+    mdd.getTaskId(mId);
     connect(mdd.certainButton,SIGNAL(clicked()),this,SLOT(refresh_table_slot()));
     mdd.setModal(true);
     mdd.show();
@@ -645,6 +647,23 @@ void mainDialog::on_personDelButton_clicked()
             WrrMsg->button(QMessageBox::Ok)->setText(QString("确定"));
         }
         WrrMsg->exec();
+        return;
+    }
+    QString strTitle = QString("删除");
+    QString strMsg = QString("你确定删除该处置人员吗？");
+    QString showMsg = "<font color='black'>"+strMsg+"</font>";
+    QMessageBox *WrrMsg = new QMessageBox(QMessageBox::NoIcon, strTitle, showMsg, QMessageBox::Ok|QMessageBox::No,this);
+    if(NULL!=WrrMsg->button(QMessageBox::Ok))
+    {
+        WrrMsg->button(QMessageBox::Ok)->setText(QString("确定"));
+    }
+    if(NULL!=WrrMsg->button(QMessageBox::No))
+    {
+        WrrMsg->button(QMessageBox::No)->setText(QString("取消"));
+    }
+    int isDel = WrrMsg->exec();
+    if(isDel == QMessageBox::No)
+    {
         return;
     }
     QString num = ui->dispersonTableWidget->item(row,1)->text();
@@ -952,6 +971,7 @@ void mainDialog::on_deleButton_clicked()
         query.exec(strSql);
         strSql = QString("DELETE FROM web_record_form WHERE id=%1").arg(mTaskId);
         query.exec(strSql);
+        qDebug()<<"delete task:"<<g_task_id;
         g_task_id = 0;
         ui->mainStackedWidget->setCurrentIndex(0);
     }
@@ -1029,6 +1049,7 @@ void mainDialog::on_closeButton_clicked()
             {
                 strSql = QString("UPDATE main_task SET state = '关闭' WHERE id = %1").arg(mTaskId);
                 query.exec(strSql);
+                qDebug()<<"close task:"<<g_task_id;
                 g_task_id = 0;
                 ui->mainStackedWidget->setCurrentIndex(0);
             }
@@ -1065,31 +1086,42 @@ void analyzeXml1(QString code,QStringList &list)
         QString strId = QString("%1").arg(g_task_id);
         mOnlinePath=mOnlinePath+"\\"+strId+"\\";
 
-        //判断路径是否存在
-        QDir dir(mOnlinePath);
-        if(!dir.exists())
-        {
-            qWarning()<<"return xml dir not exist!";
-            return;
-        }
-
          //获取所选文件类型过滤器
         QStringList filters;
         filters<<QString("*.xml");
 
          //定义迭代器并设置过滤器
-        QDirIterator dir_iterator(mOnlinePath,
+        QDir dir(mOnlinePath);
+        QStringList online_list;
+        if(dir.exists())
+        {
+            QDirIterator dir_iterator(mOnlinePath,
+                filters,
+                QDir::Files | QDir::NoSymLinks,
+                QDirIterator::Subdirectories);
+            while(dir_iterator.hasNext())
+            {
+                dir_iterator.next();
+                QFileInfo file_info =dir_iterator.fileInfo();
+                QString absolute_file_path =file_info.absoluteFilePath();
+                online_list.append(absolute_file_path);
+            }
+        }
+
+        //已经解析完的xml也要去匹配
+        QString mBakPath = settings.value("autoscan/comfilepath").toString();
+        QDirIterator dir_iterator1(mBakPath,
             filters,
             QDir::Files | QDir::NoSymLinks,
             QDirIterator::Subdirectories);
-        QStringList online_list;
-        while(dir_iterator.hasNext())
+        while(dir_iterator1.hasNext())
         {
-            dir_iterator.next();
-            QFileInfo file_info =dir_iterator.fileInfo();
-            QString absolute_file_path =file_info.absoluteFilePath();
-            online_list.append(absolute_file_path);
+            dir_iterator1.next();
+            QFileInfo file_info1 =dir_iterator1.fileInfo();
+            QString absolute_file_path1 =file_info1.absoluteFilePath();
+            online_list.append(absolute_file_path1);
         }
+
         QString xmlFile;
         QDomDocument doc;
         for(int i=0;i<online_list.size();i++)
@@ -1107,6 +1139,17 @@ void analyzeXml1(QString code,QStringList &list)
             if(code==QString("012"))
             {
                 QDomElement docElem = doc.documentElement();
+
+                QDomNodeList nodeswitch=docElem.elementsByTagName("task_info");
+                QDomNode node = nodeswitch.item(0);
+                QDomElement elemnodeswitch=node.toElement();
+                QString taskCode = qPrintable(elemnodeswitch.attribute("taskcode"));
+                QString strTaskId = QString::number(g_task_id,10);
+                if(taskCode!=strTaskId)
+                {
+                    continue;
+                }
+
                 QDomNodeList nodeswitch_1=docElem.elementsByTagName("tool_info");
                 QDomNode node_1 = nodeswitch_1.item(0);
                 QDomElement elemnodeswitch_1=node_1.toElement();
@@ -1120,6 +1163,10 @@ void analyzeXml1(QString code,QStringList &list)
                 QDomNode node_2 = nodeswitch_2.item(0);
                 QDomElement element_2 = node_2.toElement();
                 QString strIp = qPrintable(element_2.attribute("dest_ip"));
+                if(list.contains(strIp))
+                {
+                    continue;
+                }
                 list.append(strIp);
 
                 QDomNodeList nodeswitch_3 = docElem.elementsByTagName("operation_info");
@@ -1162,6 +1209,17 @@ void analyzeXml1(QString code,QStringList &list)
             else if(code==QString("011"))  //系统漏洞
             {
                 QDomElement docElem = doc.documentElement();
+
+                QDomNodeList nodeswitch=docElem.elementsByTagName("task_info");
+                QDomNode node = nodeswitch.item(0);
+                QDomElement elemnodeswitch=node.toElement();
+                QString taskCode = qPrintable(elemnodeswitch.attribute("taskcode"));
+                QString strTaskId = QString::number(g_task_id,10);
+                if(taskCode!=strTaskId)
+                {
+                    continue;
+                }
+
                 QDomNodeList nodeswitch_1=docElem.elementsByTagName("tool_info");
                 QDomNode node_1 = nodeswitch_1.item(0);
                 QDomElement elemnodeswitch_1=node_1.toElement();
@@ -1216,6 +1274,17 @@ void analyzeXml1(QString code,QStringList &list)
             else if(code==QString("013"))     //数据库
             {
                 QDomElement docElem = doc.documentElement();
+
+                QDomNodeList nodeswitch=docElem.elementsByTagName("task_info");
+                QDomNode node = nodeswitch.item(0);
+                QDomElement elemnodeswitch=node.toElement();
+                QString taskCode = qPrintable(elemnodeswitch.attribute("taskcode"));
+                QString strTaskId = QString::number(g_task_id,10);
+                if(taskCode!=strTaskId)
+                {
+                    continue;
+                }
+
                 QDomNodeList nodeswitch_1=docElem.elementsByTagName("tool_info");
                 QDomNode node_1 = nodeswitch_1.item(0);
                 QDomElement elemnodeswitch_1=node_1.toElement();
@@ -1284,11 +1353,12 @@ void analyzeXml1(QString code,QStringList &list)
         dir.setFilter(QDir::Files | QDir::NoSymLinks); //设置类型过滤器，只为文件格式
         dir.setNameFilters(filters);
 
+        //注：以前没有检验已经解析完的xml，所以这边需要判断，现在不需要
         int dir_count = dir.count();
-        if(dir_count <= 0)
-        {
-            return;
-        }
+//        if(dir_count <= 0)
+//        {
+//            return;
+//        }
 
         QStringList file_list;
         //获取分隔符
@@ -1303,11 +1373,14 @@ void analyzeXml1(QString code,QStringList &list)
             separator = QChar();
         }
 
-        for(int i=0;i<dir_count;i++)
+        if(dir_count>0)
         {
-            QString file_name = dir[i];  //文件名称
-            QString file_path = mOfflinePath + separator + file_name;   //文件全路径
-            file_list.append(file_path);
+            for(int i=0;i<dir_count;i++)
+            {
+                QString file_name = dir[i];  //文件名称
+                QString file_path = mOfflinePath + separator + file_name;   //文件全路径
+                file_list.append(file_path);
+            }
         }
 
         QString xmlFile;
@@ -1352,17 +1425,27 @@ void analyzeXml1(QString code,QStringList &list)
                     continue;
                 }
 
+                QDomNodeList nodeswitch_5=docElem.elementsByTagName("task_info");
+                QDomNode node_5 = nodeswitch_5.item(0);
+                QDomElement elemnodeswitch_5=node_5.toElement();
+                QString taskCode = elemnodeswitch_5.attribute("taskcode");
+                QString strTaskId = QString::number(g_task_id,10);
+                if(taskCode!=strTaskId)
+                {
+                    continue;
+                }
+
                 QDomNodeList nodeswitch_2 = docElem.elementsByTagName("operation_info");
                 QDomNode node_2 = nodeswitch_2.item(0);
                 QDomElement element_2 = node_2.toElement();
                 QString strIp_2 = element_2.attribute("src_ip");
                 QStringList str_list = strIp_2.split(";");
-                QString hostIp = str_list[0];
-                if(!ifHaveIp1(hostIp,ip_list))
+                int count = str_list.count();
+                QString hostIp = str_list[count-2];
+                if(ifHaveIp1(hostIp,ip_list))
                 {
-                    continue;
+                    list.append(hostIp);
                 }
-                list.append(hostIp);
 
                 QDomNodeList nodeswitch_3 = docElem.elementsByTagName("operation_info");
                 QDomNode node_3 = nodeswitch_3.item(0);
@@ -1404,17 +1487,28 @@ void analyzeXml1(QString code,QStringList &list)
                 {
                     continue;
                 }
+
+                QDomNodeList nodeswitch_5=docElem.elementsByTagName("task_info");
+                QDomNode node_5 = nodeswitch_5.item(0);
+                QDomElement elemnodeswitch_5=node_5.toElement();
+                QString taskCode = elemnodeswitch_5.attribute("taskcode");
+                QString strTaskId = QString::number(g_task_id,10);
+                if(taskCode!=strTaskId)
+                {
+                    continue;
+                }
+
                 QDomNodeList nodeswitch_2 = docElem.elementsByTagName("operation_info");
                 QDomNode node_2 = nodeswitch_2.item(0);
                 QDomElement element_2 = node_2.toElement();
                 QString strIp_2 = element_2.attribute("src_ip");
                 QStringList str_list = strIp_2.split(";");
-                QString hostIp = str_list[0];
-                if(!ifHaveIp1(hostIp,ip_list))
+                int count = str_list.count();
+                QString hostIp = str_list[count-2];
+                if(ifHaveIp1(hostIp,ip_list))
                 {
-                    continue;
+                    list.append(hostIp);
                 }
-                list.append(hostIp);
 
                 QDomNodeList nodeswitch_3 = docElem.elementsByTagName("operation_info");
                 QDomNode node_3 = nodeswitch_3.item(0);
@@ -1456,17 +1550,28 @@ void analyzeXml1(QString code,QStringList &list)
                 {
                     continue;
                 }
+
+                QDomNodeList nodeswitch_5=docElem.elementsByTagName("task_info");
+                QDomNode node_5 = nodeswitch_5.item(0);
+                QDomElement elemnodeswitch_5=node_5.toElement();
+                QString taskCode = elemnodeswitch_5.attribute("taskcode");
+                QString strTaskId = QString::number(g_task_id,10);
+                if(taskCode!=strTaskId)
+                {
+                    continue;
+                }
+
                 QDomNodeList nodeswitch_2 = docElem.elementsByTagName("operation_info");
                 QDomNode node_2 = nodeswitch_2.item(0);
                 QDomElement element_2 = node_2.toElement();
                 QString strIp_2 = element_2.attribute("src_ip");
                 QStringList str_list = strIp_2.split(";");
-                QString hostIp = str_list[0];
-                if(!ifHaveIp1(hostIp,ip_list))
+                int count = str_list.count();
+                QString hostIp = str_list[count-2];
+                if(ifHaveIp1(hostIp,ip_list))
                 {
-                    continue;
+                    list.append(hostIp);
                 }
-                list.append(hostIp);
 
                 QDomNodeList nodeswitch_3 = docElem.elementsByTagName("operation_info");
                 QDomNode node_3 = nodeswitch_3.item(0);
@@ -1548,9 +1653,11 @@ void mainDialog::wordPreview()
     ui->disLineEdit_1->setFocusPolicy(Qt::NoFocus);
     ui->disLineEdit_2->setFocusPolicy(Qt::NoFocus);
     ui->disLineEdit_3->setFocusPolicy(Qt::NoFocus);
+    ui->disLineEdit_4->setFocusPolicy(Qt::NoFocus);
     ui->disLineEdit_1->setStyleSheet(lineStyle);
     ui->disLineEdit_2->setStyleSheet(lineStyle);
     ui->disLineEdit_3->setStyleSheet(lineStyle);
+    ui->disLineEdit_4->setStyleSheet(lineStyle);
 
     ui->jgLineEdit_1->setFocusPolicy(Qt::NoFocus);
     ui->jgLineEdit_2->setFocusPolicy(Qt::NoFocus);
@@ -1617,28 +1724,82 @@ void mainDialog::wordPreview()
 
     //网站描述、网站开发架构基本情况
     QSqlQuery query;
-    QString strSql = QString("SELECT * FROM web_record_form WHERE id=%1").arg(g_task_id);
+    QString strSql = QString("SELECT * FROM safe_record_form WHERE id=%1").arg(g_task_id);
     bool ok = query.exec(strSql);
     if(!ok)
     {
         qWarning()<<"sql error: "<<query.lastError()<<"sql is: "<<strSql.toStdString().c_str();
+        return;
     }
     if(query.next())
     {
         QString mChName = query.value(1).toString();
-        QString mIp = query.value(2).toString();
-        QString mWebsite = query.value(3).toString();
+        if(mChName.isEmpty())
+        {
+            mChName = QString("未填写");
+        }
+        QString mSysName = query.value(3).toString();
+        if(mSysName.isEmpty())
+        {
+            mSysName = QString("未填写");
+        }
+        QString mIp = query.value(6).toString();
+        if(mIp.isEmpty())
+        {
+            mIp = QString("未填写");
+        }
+        QString mWebsite = query.value(5).toString();
+        if(mWebsite.isEmpty())
+        {
+            mWebsite = QString("未填写");
+        }
         ui->disLineEdit_1->setText(mChName);
-        ui->disLineEdit_1->setText(mIp);
-        ui->disLineEdit_1->setText(mWebsite);
+        ui->disLineEdit_2->setText(mSysName);
+        ui->disLineEdit_3->setText(mIp);
+        ui->disLineEdit_4->setText(mWebsite);
 
-        QString mLanguage = query.value(20).toString();
-        QString mBuild = query.value(21).toString();
-        QString mMiddle = query.value(22).toString();
-        QString mData = query.value(23).toString();
-        QString mServer = query.value(24).toString();
-        QString mRemote = query.value(25).toString();
+        //以下元素命名经过修改所以全都不匹配
+        QString mLanguage;
+        QDateTime mTime1 = query.value(14).toDateTime();
+        if(mTime1.isValid())
+        {
+            mLanguage = mTime1.toString("yyyy-MM-dd hh:mm:ss");
+        }
+        else
+        {
+            mLanguage = QString("未填写");
+        }
+        QString mBuild = query.value(15).toString();
+        if(mBuild.isEmpty())
+        {
+            mBuild = QString("未填写");
+        }
+        QDateTime mTime2 = query.value(17).toDateTime();
+        QString mMiddle;
+        if(mTime2.isValid())
+        {
+            mMiddle = mTime2.toString("yyyy-MM-dd hh:mm:ss");
+        }
+        else
+        {
+            mMiddle = QString("未填写");
+        }
 
+        QString mData = query.value(18).toString();
+        if(mData.isEmpty())
+        {
+            mData = QString("未填写");
+        }
+        QString mServer = query.value(21).toString();
+        if(mServer.isEmpty())
+        {
+            mServer = QString("未填写");
+        }
+        QString mRemote = query.value(22).toString();
+        if(mRemote.isEmpty())
+        {
+            mRemote = QString("未填写");
+        }
         ui->jgLineEdit_1->setText(mLanguage);
         ui->jgLineEdit_2->setText(mBuild);
         ui->jgLineEdit_3->setText(mMiddle);
@@ -1654,208 +1815,265 @@ void mainDialog::wordPreview()
     {
         qWarning()<<"sql error: "<<query.lastError()<<"sql is: "<<strSql.toStdString().c_str();
     }
-    QString mIp,mOperate,mDatabase,mMiddle,mKind;
-    if(query.next())
+    QString mIp,mOperate,mMiddle,mKind,mName;
+    QMap<QString,QString> mHostMap;
+    ui->hostWTableWidget->setRowCount(0);
+    int i=0;
+    while(query.next())
     {
+        mName = query.value(1).toString();
         mIp = query.value(2).toString();
+        if(mHostMap.contains(mIp))
+        {
+            QString hostName = mHostMap[mIp];
+            if(hostName==mName)
+            {
+                continue;
+            }
+            else
+            {
+                mHostMap.insert(mIp,mName);
+            }
+        }
         mOperate = query.value(6).toString();
-        mDatabase = query.value(4).toString();
+//        mDatabase = query.value(4).toString();
         mMiddle = query.value(5).toString();
         mKind = query.value(3).toString();
 
+        ui->hostWTableWidget->insertRow(i);
         QTableWidgetItem *item1 = new QTableWidgetItem(mIp);
         item1->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->hostWTableWidget->setItem(0,0,item1);
+        ui->hostWTableWidget->setItem(i,0,item1);
         QTableWidgetItem *item2 = new QTableWidgetItem(mOperate);
         item2->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->hostWTableWidget->setItem(0,1,item2);
-        QTableWidgetItem *item3 = new QTableWidgetItem(mDatabase);
+        ui->hostWTableWidget->setItem(i,2,item2);
+        QTableWidgetItem *item3 = new QTableWidgetItem(mName);
         item3->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->hostWTableWidget->setItem(0,2,item3);
+        ui->hostWTableWidget->setItem(i,1,item3);
         QTableWidgetItem *item4 = new QTableWidgetItem(mMiddle);
         item4->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->hostWTableWidget->setItem(0,3,item4);
+        ui->hostWTableWidget->setItem(i,3,item4);
         QTableWidgetItem *item5 = new QTableWidgetItem(mKind);
         item5->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->hostWTableWidget->setItem(0,4,item5);
+        ui->hostWTableWidget->setItem(i,4,item5);
+        i++;
     }
-
-
     //网站安全漏洞
     QStringList scan_list;
     QString toolCode;
     //webscan
     toolCode = QString("012");
     analyzeXml1(toolCode,scan_list);
-    if(!scan_list.isEmpty())
+    int count = scan_list.count();
+    int num = count/5;
+    if(num>0)
     {
-        QString str = scan_list[0];
-        QTableWidgetItem *item1 = new QTableWidgetItem(str);
-        item1->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->tableWidget->setItem(0,0,item1);
+        ui->tableWidget->setRowCount(0);
+        for(int i=0;i<num;i++)
+        {
+            ui->tableWidget->insertRow(i);
+            QString str = scan_list[0+5*i];
+            QTableWidgetItem *item1 = new QTableWidgetItem(str);
+            item1->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+            ui->tableWidget->setItem(i,0,item1);
 
-        str = scan_list[1];
-        QTableWidgetItem *item2 = new QTableWidgetItem(str);
-        item2->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->tableWidget->setItem(0,1,item2);
+            str = scan_list[1+5*i];
+            QTableWidgetItem *item2 = new QTableWidgetItem(str);
+            item2->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+            ui->tableWidget->setItem(i,1,item2);
 
-        str = scan_list[2];
-        QTableWidgetItem *item3 = new QTableWidgetItem(str);
-        item3->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->tableWidget->setItem(0,2,item3);
+            str = scan_list[2+5*i];
+            QTableWidgetItem *item3 = new QTableWidgetItem(str);
+            item3->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+            ui->tableWidget->setItem(i,2,item3);
 
-        str = scan_list[3];
-        QTableWidgetItem *item4 = new QTableWidgetItem(str);
-        item4->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->tableWidget->setItem(0,3,item4);
+            str = scan_list[3+5*i];
+            QTableWidgetItem *item4 = new QTableWidgetItem(str);
+            item4->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+            ui->tableWidget->setItem(i,3,item4);
 
-        str = scan_list[4];
-        QTableWidgetItem *item5 = new QTableWidgetItem(str);
-        item5->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->tableWidget->setItem(0,4,item5);
+            str = scan_list[4+5*i];
+            QTableWidgetItem *item5 = new QTableWidgetItem(str);
+            item5->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+            ui->tableWidget->setItem(i,4,item5);
+        }
     }
     scan_list.clear();
     //系统漏扫
     toolCode = QString("011");
     analyzeXml1(toolCode,scan_list);
-    if(!scan_list.isEmpty())
+    count = scan_list.count();
+    num = count/5;
+    if(num>0)
     {
-        QString str = scan_list[0];
-        QTableWidgetItem *item1 = new QTableWidgetItem(str);
-        item1->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->tableWidget_3->setItem(0,0,item1);
+        ui->tableWidget_3->setRowCount(0);
+        for(int i=0;i<num;i++)
+        {
+            ui->tableWidget_3->insertRow(i);
+            QString str = scan_list[0+5*i];
+            QTableWidgetItem *item1 = new QTableWidgetItem(str);
+            item1->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+            ui->tableWidget_3->setItem(i,0,item1);
 
-        str = scan_list[1];
-        QTableWidgetItem *item2 = new QTableWidgetItem(str);
-        item2->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->tableWidget_3->setItem(0,1,item2);
+            str = scan_list[1+5*i];
+            QTableWidgetItem *item2 = new QTableWidgetItem(str);
+            item2->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+            ui->tableWidget_3->setItem(i,1,item2);
 
-        str = scan_list[2];
-        QTableWidgetItem *item3 = new QTableWidgetItem(str);
-        item3->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->tableWidget_3->setItem(0,2,item3);
+            str = scan_list[2+5*i];
+            QTableWidgetItem *item3 = new QTableWidgetItem(str);
+            item3->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+            ui->tableWidget_3->setItem(i,2,item3);
 
-        str = scan_list[3];
-        QTableWidgetItem *item4 = new QTableWidgetItem(str);
-        item4->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->tableWidget_3->setItem(0,3,item4);
+            str = scan_list[3+5*i];
+            QTableWidgetItem *item4 = new QTableWidgetItem(str);
+            item4->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+            ui->tableWidget_3->setItem(i,3,item4);
 
-        str = scan_list[4];
-        QTableWidgetItem *item5 = new QTableWidgetItem(str);
-        item5->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->tableWidget_3->setItem(0,4,item5);
+            str = scan_list[4+5*i];
+            QTableWidgetItem *item5 = new QTableWidgetItem(str);
+            item5->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+            ui->tableWidget_3->setItem(i,4,item5);
+        }
     }
     scan_list.clear();
     //数据库安全
     toolCode = QString("013");
     analyzeXml1(toolCode,scan_list);
-    if(!scan_list.isEmpty())
+    count = scan_list.count();
+    num = count/5;
+    if(num>0)
     {
-        QString str = scan_list[0];
-        QTableWidgetItem *item1 = new QTableWidgetItem(str);
-        item1->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->tableWidget_4->setItem(0,0,item1);
+        ui->tableWidget_4->setRowCount(0);
+        for(int i=0;i<num;i++)
+        {
+            ui->tableWidget_4->insertRow(i);
+            QString str = scan_list[0+5*i];
+            QTableWidgetItem *item1 = new QTableWidgetItem(str);
+            item1->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+            ui->tableWidget_4->setItem(i,0,item1);
 
-        str = scan_list[1];
-        QTableWidgetItem *item2 = new QTableWidgetItem(str);
-        item2->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->tableWidget_4->setItem(0,1,item2);
+            str = scan_list[1+5*i];
+            QTableWidgetItem *item2 = new QTableWidgetItem(str);
+            item2->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+            ui->tableWidget_4->setItem(i,1,item2);
 
-        str = scan_list[2];
-        QTableWidgetItem *item3 = new QTableWidgetItem(str);
-        item3->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->tableWidget_4->setItem(0,2,item3);
+            str = scan_list[2+5*i];
+            QTableWidgetItem *item3 = new QTableWidgetItem(str);
+            item3->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+            ui->tableWidget_4->setItem(i,2,item3);
 
-        str = scan_list[3];
-        QTableWidgetItem *item4 = new QTableWidgetItem(str);
-        item4->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->tableWidget_4->setItem(0,3,item4);
+            str = scan_list[3+5*i];
+            QTableWidgetItem *item4 = new QTableWidgetItem(str);
+            item4->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+            ui->tableWidget_4->setItem(i,3,item4);
 
-        str = scan_list[4];
-        QTableWidgetItem *item5 = new QTableWidgetItem(str);
-        item5->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->tableWidget_4->setItem(0,4,item5);
+            str = scan_list[4+5*i];
+            QTableWidgetItem *item5 = new QTableWidgetItem(str);
+            item5->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+            ui->tableWidget_4->setItem(i,4,item5);
+        }
     }
     scan_list.clear();
     //恶意代码
     toolCode = QString("006");
     analyzeXml1(toolCode,scan_list);
-    if(!scan_list.isEmpty())
+    count = scan_list.count();
+    num = count/4;
+    if(num>0)
     {
-        QString str = scan_list[0];
-        QTableWidgetItem *item1 = new QTableWidgetItem(str);
-        item1->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->tableWidget_2->setItem(0,0,item1);
+        ui->tableWidget_2->setRowCount(0);
+        for(int i=0;i<num;i++)
+        {
+            ui->tableWidget_2->insertRow(i);
+            QString str = scan_list[0+4*i];
+            QTableWidgetItem *item1 = new QTableWidgetItem(str);
+            item1->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+            ui->tableWidget_2->setItem(i,0,item1);
 
-        str = scan_list[1];
-        QTableWidgetItem *item2 = new QTableWidgetItem(str);
-        item2->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->tableWidget_2->setItem(0,1,item2);
+            str = scan_list[1+4*i];
+            QTableWidgetItem *item2 = new QTableWidgetItem(str);
+            item2->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+            ui->tableWidget_2->setItem(i,1,item2);
 
-        str = scan_list[2];
-        QTableWidgetItem *item3 = new QTableWidgetItem(str);
-        item3->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->tableWidget_2->setItem(0,2,item3);
+            str = scan_list[2+4*i];
+            QTableWidgetItem *item3 = new QTableWidgetItem(str);
+            item3->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+            ui->tableWidget_2->setItem(i,2,item3);
 
-        str = scan_list[3];
-        QTableWidgetItem *item4 = new QTableWidgetItem(str);
-        item4->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->tableWidget_2->setItem(0,3,item4);
+            str = scan_list[3+4*i];
+            QTableWidgetItem *item4 = new QTableWidgetItem(str);
+            item4->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+            ui->tableWidget_2->setItem(i,3,item4);
+        }
     }
     scan_list.clear();
     //木马
     toolCode = QString("004");
     analyzeXml1(toolCode,scan_list);
-    if(!scan_list.isEmpty())
+    count = scan_list.count();
+    num = count/4;
+    if(num>0)
     {
-        QString str = scan_list[0];
-        QTableWidgetItem *item1 = new QTableWidgetItem(str);
-        item1->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->tableWidget_5->setItem(0,0,item1);
+        ui->tableWidget_5->setRowCount(0);
+        for(int i=0;i<num;i++)
+        {
+            ui->tableWidget_5->insertRow(i);
+            QString str = scan_list[0+4*i];
+            QTableWidgetItem *item1 = new QTableWidgetItem(str);
+            item1->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+            ui->tableWidget_5->setItem(i,0,item1);
 
-        str = scan_list[1];
-        QTableWidgetItem *item2 = new QTableWidgetItem(str);
-        item2->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->tableWidget_5->setItem(0,1,item2);
+            str = scan_list[1+4*i];
+            QTableWidgetItem *item2 = new QTableWidgetItem(str);
+            item2->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+            ui->tableWidget_5->setItem(i,1,item2);
 
-        str = scan_list[2];
-        QTableWidgetItem *item3 = new QTableWidgetItem(str);
-        item3->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->tableWidget_5->setItem(0,2,item3);
+            str = scan_list[2+4*i];
+            QTableWidgetItem *item3 = new QTableWidgetItem(str);
+            item3->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+            ui->tableWidget_5->setItem(i,2,item3);
 
-        str = scan_list[3];
-        QTableWidgetItem *item4 = new QTableWidgetItem(str);
-        item4->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->tableWidget_5->setItem(0,3,item4);
+            str = scan_list[3+4*i];
+            QTableWidgetItem *item4 = new QTableWidgetItem(str);
+            item4->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+            ui->tableWidget_5->setItem(i,3,item4);
+        }
     }
     scan_list.clear();
     //病毒
     toolCode = QString("003");
     analyzeXml1(toolCode,scan_list);
-    if(!scan_list.isEmpty())
+    count = scan_list.count();
+    num = count/4;
+    if(num>0)
     {
-        QString str = scan_list[0];
-        QTableWidgetItem *item1 = new QTableWidgetItem(str);
-        item1->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->tableWidget_6->setItem(0,0,item1);
+        ui->tableWidget_6->setRowCount(0);
+        for(int i=0;i<num;i++)
+        {
+            ui->tableWidget_6->insertRow(i);
+            QString str = scan_list[0+4*i];
+            QTableWidgetItem *item1 = new QTableWidgetItem(str);
+            item1->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+            ui->tableWidget_6->setItem(i,0,item1);
 
-        str = scan_list[1];
-        QTableWidgetItem *item2 = new QTableWidgetItem(str);
-        item2->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->tableWidget_6->setItem(0,1,item2);
+            str = scan_list[1+4*i];
+            QTableWidgetItem *item2 = new QTableWidgetItem(str);
+            item2->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+            ui->tableWidget_6->setItem(i,1,item2);
 
-        str = scan_list[2];
-        QTableWidgetItem *item3 = new QTableWidgetItem(str);
-        item3->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->tableWidget_6->setItem(0,2,item3);
+            str = scan_list[2+4*i];
+            QTableWidgetItem *item3 = new QTableWidgetItem(str);
+            item3->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+            ui->tableWidget_6->setItem(i,2,item3);
 
-        str = scan_list[3];
-        QTableWidgetItem *item4 = new QTableWidgetItem(str);
-        item4->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-        ui->tableWidget_6->setItem(0,3,item4);
+            str = scan_list[3+4*i];
+            QTableWidgetItem *item4 = new QTableWidgetItem(str);
+            item4->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+            ui->tableWidget_6->setItem(i,3,item4);
+        }
     }
     scan_list.clear();
-
 
     //应急处置情况
     QString str;
@@ -1955,7 +2173,7 @@ void mainDialog::on_pushButton_3_clicked()
     QString saveFileName = QFileDialog::getSaveFileName(this,QString("保存文件"),QDir::currentPath(),"(*.docx)");
     if(saveFileName.isEmpty())
     {
-        QMessageBox::information(this,QString("出错"),QString("请选择文件"));
+//        QMessageBox::information(this,QString("出错"),QString("请选择文件"));
         return;
     }
     connect(&reportThread,SIGNAL(ifSuccess(int)),this,SLOT(report_success_slot(int)));

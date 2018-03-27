@@ -49,7 +49,8 @@ SOURCES += main.cpp\
     waitdialog.cpp \
     reportthread.cpp \
     adddispersondialog.cpp \
-    ccrashstack.cpp
+    ccrashstack.cpp \
+    noeditdelegate.cpp
 
 HEADERS  += \
     registerdialog.h \
@@ -85,7 +86,8 @@ HEADERS  += \
     waitdialog.h \
     reportthread.h \
     adddispersondialog.h \
-    ccrashstack.h
+    ccrashstack.h \
+    noeditdelegate.h
 
 FORMS    += \
     registerdialog.ui \

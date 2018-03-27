@@ -24,12 +24,17 @@ modifyDialog::modifyDialog(QWidget *parent) :
     mLayout->setMargin(0);
     ui->buttonLabel->setLayout(mLayout);
     QObject::connect(certainButton,SIGNAL(clicked()),this,SLOT(certain_click()));
-    tableInit();
 }
 
 modifyDialog::~modifyDialog()
 {
     delete ui;
+}
+
+void modifyDialog::getTaskId(int id)
+{
+    mTaskId = id;
+    tableInit();
 }
 
 void modifyDialog::certain_click()
@@ -43,7 +48,7 @@ void modifyDialog::certain_click()
     QString str_5 = ui->danweiComboBox->currentText();
     QString str_6 = ui->textEdit->toPlainText();
     QString str_7 = ui->sysLineEdit->text();
-    QString str_8 = ui->levelLineEdit->text();
+    QString str_8 = ui->levelComboBox->currentText();
     QString str_9 = ui->textEdit_2->toPlainText();
     QString str_10 = ui->laiyuanComboBox->currentText();
     QString str_11 = ui->employLineEdit->text();
@@ -87,7 +92,7 @@ void modifyDialog::certain_click()
                                             "event_source='%9',event_name='%10',event_time='%11',event_place='%12',event_kind='%13',"
                                             "event_level='%14',dispose_company='%15',event_discribe='%16' WHERE id=%17").arg(str_11).arg(str_14)
             .arg(str_12).arg(str_15).arg(str_13).arg(str_16).arg(str_7).arg(str_8).arg(str_10).arg(str_1).arg(strTime).arg(str_6)
-            .arg(str_3).arg(str_4).arg(str_5).arg(str_9).arg(g_task_id);
+            .arg(str_3).arg(str_4).arg(str_5).arg(str_9).arg(mTaskId);
     bool ok = query.exec(strSql);
     if(!ok)
     {
@@ -148,7 +153,7 @@ void modifyDialog::tableInit()
         ui->danweiComboBox->addItem(icon,name);
     }
 
-    strSql = QString("SELECT * FROM main_task WHERE id=%1").arg(g_task_id);
+    strSql = QString("SELECT * FROM main_task WHERE id=%1").arg(mTaskId);
     ok = query.exec(strSql);
     if(!ok)
     {
@@ -180,7 +185,7 @@ void modifyDialog::tableInit()
         ui->danweiComboBox->setCurrentText(str_15);
         ui->textEdit->setText(str_12);
         ui->sysLineEdit->setText(str_7);
-        ui->levelLineEdit->setText(str_8);
+        ui->levelComboBox->setCurrentText(str_8);
         ui->textEdit_2->setText(str_16);
         ui->laiyuanComboBox->setCurrentText(str_9);
         ui->employLineEdit->setText(str_1);

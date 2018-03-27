@@ -26,7 +26,7 @@
     <string notr="true"/>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -36,7 +36,7 @@
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>20</y>
+       <y>10</y>
        <width>761</width>
        <height>521</height>
       </rect>
@@ -54,14 +54,14 @@
       <enum>QFrame::Plain</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page">
       <widget class="QLabel" name="label">
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>20</y>
+         <y>0</y>
          <width>231</width>
          <height>21</height>
         </rect>
@@ -77,9 +77,9 @@
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>50</y>
+         <y>25</y>
          <width>762</width>
-         <height>469</height>
+         <height>499</height>
         </rect>
        </property>
        <property name="widgetResizable">
@@ -89,7 +89,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-112</y>
+          <y>0</y>
           <width>746</width>
           <height>579</height>
          </rect>
@@ -198,6 +198,9 @@
             </color>
            </brush>
           </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
          </item>
          <item row="1" column="2">
           <property name="text">
@@ -220,6 +223,9 @@
              <blue>255</blue>
             </color>
            </brush>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
           </property>
          </item>
          <item row="2" column="0">
@@ -244,6 +250,9 @@
             </color>
            </brush>
           </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+          </property>
          </item>
          <item row="2" column="2">
           <property name="text">
@@ -266,6 +275,9 @@
              <blue>255</blue>
             </color>
            </brush>
+          </property>
+          <property name="flags">
+           <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
           </property>
          </item>
          <item row="3" column="0">
@@ -571,6 +583,9 @@
           </property>
          </item>
          <item row="8" column="1">
+          <property name="text">
+           <string/>
+          </property>
           <property name="flags">
            <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
           </property>
@@ -867,13 +882,13 @@
          <property name="geometry">
           <rect>
            <x>660</x>
-           <y>550</y>
+           <y>547</y>
            <width>75</width>
            <height>23</height>
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>保存</string>
@@ -2298,7 +2313,7 @@
     <widget class="QRadioButton" name="firstRadioButton">
      <property name="geometry">
       <rect>
-       <x>190</x>
+       <x>460</x>
        <y>10</y>
        <width>191</width>
        <height>16</height>
@@ -2317,7 +2332,7 @@
     <widget class="QRadioButton" name="secondRadioButton">
      <property name="geometry">
       <rect>
-       <x>350</x>
+       <x>450</x>
        <y>10</y>
        <width>151</width>
        <height>16</height>
@@ -2330,7 +2345,7 @@
     <widget class="QLabel" name="label_7">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>590</x>
        <y>10</y>
        <width>131</width>
        <height>16</height>
@@ -2371,7 +2386,7 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>添加资产</string>
@@ -2387,7 +2402,7 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>删除资产</string>
@@ -2461,7 +2476,7 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>运行工具</string>
@@ -2477,7 +2492,7 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>查看结果</string>
@@ -2493,7 +2508,7 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>手动关联</string>
@@ -2527,7 +2542,7 @@
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>启动分析</string>
@@ -2609,7 +2624,7 @@
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>查看告警</string>
@@ -3083,7 +3098,7 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>保存</string>

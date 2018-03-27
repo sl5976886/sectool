@@ -213,7 +213,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="page">
     <widget class="QPushButton" name="openTaskButton">
@@ -323,7 +323,8 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 75 16pt &quot;Berlin Sans FB Demi&quot;;</string>
+      <string notr="true">font: 75 16pt &quot;Berlin Sans FB Demi&quot;;
+color: rgb(255, 255, 255);</string>
      </property>
      <property name="text">
       <string>应急处置 证据固定 专家分析 一键关联</string>
@@ -404,7 +405,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-24</y>
+        <y>0</y>
         <width>885</width>
         <height>1000</height>
        </rect>
@@ -435,13 +436,13 @@
        <property name="geometry">
         <rect>
          <x>130</x>
-         <y>65</y>
+         <y>62</y>
          <width>61</width>
          <height>20</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>修改</string>
@@ -620,7 +621,7 @@
        </item>
        <item row="3" column="0">
         <property name="text">
-         <string>信息系统名称：</string>
+         <string>系统名称：</string>
         </property>
         <property name="background">
          <brush brushstyle="SolidPattern">
@@ -637,7 +638,7 @@
        </item>
        <item row="3" column="2">
         <property name="text">
-         <string>信息系统等级：</string>
+         <string>系统等级：</string>
         </property>
         <property name="background">
          <brush brushstyle="SolidPattern">
@@ -809,13 +810,13 @@
        <property name="geometry">
         <rect>
          <x>200</x>
-         <y>385</y>
+         <y>382</y>
          <width>61</width>
          <height>20</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>添加</string>
@@ -825,10 +826,19 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>410</y>
-         <width>871</width>
-         <height>118</height>
+         <y>412</y>
+         <width>869</width>
+         <height>151</height>
         </rect>
+       </property>
+       <property name="showGrid">
+        <bool>true</bool>
+       </property>
+       <property name="gridStyle">
+        <enum>Qt::SolidLine</enum>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
        </property>
        <row>
         <property name="text">
@@ -865,13 +875,13 @@
        <property name="geometry">
         <rect>
          <x>270</x>
-         <y>385</y>
+         <y>382</y>
          <width>61</width>
          <height>20</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>修改</string>
@@ -881,7 +891,7 @@
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>550</y>
+         <y>580</y>
          <width>91</width>
          <height>31</height>
         </rect>
@@ -897,13 +907,13 @@
        <property name="geometry">
         <rect>
          <x>120</x>
-         <y>555</y>
+         <y>582</y>
          <width>61</width>
          <height>20</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>添加</string>
@@ -913,13 +923,13 @@
        <property name="geometry">
         <rect>
          <x>190</x>
-         <y>555</y>
+         <y>582</y>
          <width>61</width>
          <height>20</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>删除</string>
@@ -929,9 +939,9 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>590</y>
-         <width>871</width>
-         <height>261</height>
+         <y>620</y>
+         <width>869</width>
+         <height>351</height>
         </rect>
        </property>
        <row>
@@ -985,13 +995,13 @@
        <property name="geometry">
         <rect>
          <x>340</x>
-         <y>385</y>
+         <y>382</y>
          <width>61</width>
          <height>20</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+        <string notr="true"/>
        </property>
        <property name="text">
         <string>删除</string>
@@ -1001,7 +1011,7 @@
        <property name="geometry">
         <rect>
          <x>90</x>
-         <y>6</y>
+         <y>3</y>
          <width>61</width>
          <height>20</height>
         </rect>
@@ -1020,7 +1030,7 @@
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>6</y>
+         <y>3</y>
          <width>61</width>
          <height>20</height>
         </rect>
@@ -1074,15 +1084,15 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
+        <y>-451</y>
         <width>885</width>
-        <height>2500</height>
+        <height>2400</height>
        </rect>
       </property>
       <property name="minimumSize">
        <size>
         <width>0</width>
-        <height>2500</height>
+        <height>2400</height>
        </size>
       </property>
       <widget class="QLabel" name="label_10">
@@ -1095,7 +1105,8 @@
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 14pt &quot;仿宋&quot;;</string>
+        <string notr="true">font: 14pt &quot;仿宋&quot;;
+color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
         <string>一、网站基本情况</string>
@@ -1105,13 +1116,14 @@
        <property name="geometry">
         <rect>
          <x>80</x>
-         <y>55</y>
+         <y>40</y>
          <width>121</width>
          <height>31</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;仿宋&quot;;</string>
+        <string notr="true">font: 12pt &quot;仿宋&quot;;
+color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
         <string>1.1 网站描述</string>
@@ -1121,39 +1133,48 @@
        <property name="geometry">
         <rect>
          <x>80</x>
-         <y>101</y>
-         <width>81</width>
+         <y>81</y>
+         <width>91</width>
          <height>21</height>
         </rect>
        </property>
        <property name="text">
-        <string>网站中文名为：</string>
+        <string>单位名称为：</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
       <widget class="QLabel" name="label_13">
        <property name="geometry">
         <rect>
          <x>80</x>
-         <y>130</y>
-         <width>81</width>
+         <y>110</y>
+         <width>91</width>
          <height>21</height>
         </rect>
        </property>
        <property name="text">
-        <string>网站ip地址为：</string>
+        <string>系统名称为：</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
       <widget class="QLabel" name="label_14">
        <property name="geometry">
         <rect>
          <x>80</x>
-         <y>160</y>
-         <width>81</width>
+         <y>140</y>
+         <width>91</width>
          <height>21</height>
         </rect>
        </property>
        <property name="text">
-        <string>网站网址为：</string>
+        <string>网站IP地址为：</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
       <widget class="QLabel" name="label_15">
@@ -1166,7 +1187,8 @@
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;仿宋&quot;;</string>
+        <string notr="true">font: 12pt &quot;仿宋&quot;;
+color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
         <string>1.2 网站开发架构基本情况</string>
@@ -1177,12 +1199,15 @@
         <rect>
          <x>80</x>
          <y>240</y>
-         <width>81</width>
+         <width>91</width>
          <height>21</height>
         </rect>
        </property>
        <property name="text">
-        <string>开发语言：</string>
+        <string>发现时间：</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
       <widget class="QLabel" name="label_17">
@@ -1190,12 +1215,15 @@
         <rect>
          <x>80</x>
          <y>270</y>
-         <width>81</width>
+         <width>91</width>
          <height>21</height>
         </rect>
        </property>
        <property name="text">
-        <string>建站平台：</string>
+        <string>发现来源：</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
       <widget class="QLabel" name="label_18">
@@ -1203,25 +1231,31 @@
         <rect>
          <x>80</x>
          <y>300</y>
-         <width>81</width>
+         <width>91</width>
          <height>21</height>
         </rect>
        </property>
        <property name="text">
-        <string>中间件：</string>
+        <string>遭受攻击时间：</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
       <widget class="QLabel" name="label_19">
        <property name="geometry">
         <rect>
-         <x>80</x>
+         <x>70</x>
          <y>330</y>
-         <width>81</width>
+         <width>101</width>
          <height>21</height>
         </rect>
        </property>
        <property name="text">
-        <string>数据库：</string>
+        <string>系统遭破坏程度：</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
       <widget class="QLabel" name="label_20">
@@ -1229,12 +1263,15 @@
         <rect>
          <x>80</x>
          <y>360</y>
-         <width>81</width>
+         <width>91</width>
          <height>21</height>
         </rect>
        </property>
        <property name="text">
-        <string>服务器：</string>
+        <string>调查单位：</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
       <widget class="QLabel" name="label_21">
@@ -1242,12 +1279,15 @@
         <rect>
          <x>80</x>
          <y>390</y>
-         <width>81</width>
+         <width>91</width>
          <height>21</height>
         </rect>
        </property>
        <property name="text">
-        <string>远程维护方式：</string>
+        <string>调查人：</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
       <widget class="QLabel" name="label_22">
@@ -1260,7 +1300,8 @@
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;仿宋&quot;;</string>
+        <string notr="true">font: 12pt &quot;仿宋&quot;;
+color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
         <string>1.3 网站资产情况</string>
@@ -1270,9 +1311,9 @@
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>470</y>
-         <width>761</width>
-         <height>51</height>
+         <y>460</y>
+         <width>759</width>
+         <height>110</height>
         </rect>
        </property>
        <row>
@@ -1287,12 +1328,12 @@
        </column>
        <column>
         <property name="text">
-         <string>操作系统</string>
+         <string>资产名称</string>
         </property>
        </column>
        <column>
         <property name="text">
-         <string>数据库</string>
+         <string>操作系统</string>
         </property>
        </column>
        <column>
@@ -1310,13 +1351,14 @@
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>550</y>
+         <y>570</y>
          <width>171</width>
          <height>31</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 14pt &quot;仿宋&quot;;</string>
+        <string notr="true">font: 14pt &quot;仿宋&quot;;
+color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
         <string>二.网站安全漏洞</string>
@@ -1326,13 +1368,14 @@
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>590</y>
+         <y>606</y>
          <width>201</width>
          <height>31</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;仿宋&quot;;</string>
+        <string notr="true">font: 12pt &quot;仿宋&quot;;
+color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
         <string>2.1 网站安全漏洞</string>
@@ -1342,9 +1385,9 @@
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>630</y>
-         <width>761</width>
-         <height>51</height>
+         <y>640</y>
+         <width>759</width>
+         <height>110</height>
         </rect>
        </property>
        <row>
@@ -1382,13 +1425,14 @@
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>690</y>
+         <y>750</y>
          <width>201</width>
          <height>31</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;仿宋&quot;;</string>
+        <string notr="true">font: 12pt &quot;仿宋&quot;;
+color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
         <string>2.2 网站恶意代码</string>
@@ -1398,9 +1442,9 @@
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>730</y>
-         <width>761</width>
-         <height>51</height>
+         <y>780</y>
+         <width>759</width>
+         <height>110</height>
         </rect>
        </property>
        <row>
@@ -1433,13 +1477,14 @@
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>790</y>
+         <y>890</y>
          <width>221</width>
          <height>31</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;仿宋&quot;;</string>
+        <string notr="true">font: 12pt &quot;仿宋&quot;;
+color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
         <string>2.3 操作系统及应用软件漏洞</string>
@@ -1449,9 +1494,9 @@
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>830</y>
-         <width>761</width>
-         <height>51</height>
+         <y>920</y>
+         <width>759</width>
+         <height>110</height>
         </rect>
        </property>
        <row>
@@ -1489,13 +1534,14 @@
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>890</y>
+         <y>1030</y>
          <width>221</width>
          <height>31</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;仿宋&quot;;</string>
+        <string notr="true">font: 12pt &quot;仿宋&quot;;
+color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
         <string>2.4 数据库安全漏洞</string>
@@ -1505,9 +1551,9 @@
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>930</y>
-         <width>761</width>
-         <height>51</height>
+         <y>1070</y>
+         <width>759</width>
+         <height>110</height>
         </rect>
        </property>
        <row>
@@ -1545,13 +1591,14 @@
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>990</y>
+         <y>1180</y>
          <width>221</width>
          <height>31</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;仿宋&quot;;</string>
+        <string notr="true">font: 12pt &quot;仿宋&quot;;
+color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
         <string>2.5 服务器木马检测结果</string>
@@ -1561,9 +1608,9 @@
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>1030</y>
-         <width>761</width>
-         <height>51</height>
+         <y>1220</y>
+         <width>759</width>
+         <height>110</height>
         </rect>
        </property>
        <row>
@@ -1596,13 +1643,14 @@
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>1090</y>
+         <y>1330</y>
          <width>221</width>
          <height>31</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;仿宋&quot;;</string>
+        <string notr="true">font: 12pt &quot;仿宋&quot;;
+color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
         <string>2.6 服务器病毒检测结果</string>
@@ -1612,9 +1660,9 @@
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>1130</y>
-         <width>761</width>
-         <height>51</height>
+         <y>1370</y>
+         <width>759</width>
+         <height>110</height>
         </rect>
        </property>
        <row>
@@ -1647,13 +1695,14 @@
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>1910</y>
+         <y>1820</y>
          <width>171</width>
          <height>31</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 14pt &quot;仿宋&quot;;</string>
+        <string notr="true">font: 14pt &quot;仿宋&quot;;
+color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
         <string>四.应急处置情况</string>
@@ -1663,13 +1712,14 @@
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>1950</y>
+         <y>1860</y>
          <width>221</width>
          <height>31</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;仿宋&quot;;</string>
+        <string notr="true">font: 12pt &quot;仿宋&quot;;
+color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
         <string>4.1 事件发生的过程</string>
@@ -1679,7 +1729,7 @@
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>1990</y>
+         <y>1900</y>
          <width>761</width>
          <height>101</height>
         </rect>
@@ -1689,13 +1739,14 @@
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>2110</y>
+         <y>2010</y>
          <width>221</width>
          <height>31</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;仿宋&quot;;</string>
+        <string notr="true">font: 12pt &quot;仿宋&quot;;
+color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
         <string>4.2 事件出现的原因以及分析</string>
@@ -1705,7 +1756,7 @@
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>2150</y>
+         <y>2050</y>
          <width>761</width>
          <height>101</height>
         </rect>
@@ -1715,13 +1766,14 @@
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>2270</y>
+         <y>2170</y>
          <width>221</width>
          <height>31</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;仿宋&quot;;</string>
+        <string notr="true">font: 12pt &quot;仿宋&quot;;
+color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
         <string>4.3 事件处置及结果</string>
@@ -1731,7 +1783,7 @@
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>2310</y>
+         <y>2210</y>
          <width>761</width>
          <height>101</height>
         </rect>
@@ -1741,7 +1793,7 @@
        <property name="geometry">
         <rect>
          <x>180</x>
-         <y>102</y>
+         <y>82</y>
          <width>581</width>
          <height>20</height>
         </rect>
@@ -1751,7 +1803,7 @@
        <property name="geometry">
         <rect>
          <x>180</x>
-         <y>132</y>
+         <y>112</y>
          <width>581</width>
          <height>20</height>
         </rect>
@@ -1761,7 +1813,7 @@
        <property name="geometry">
         <rect>
          <x>180</x>
-         <y>160</y>
+         <y>140</y>
          <width>581</width>
          <height>20</height>
         </rect>
@@ -1770,7 +1822,7 @@
       <widget class="QLineEdit" name="jgLineEdit_1">
        <property name="geometry">
         <rect>
-         <x>150</x>
+         <x>180</x>
          <y>242</y>
          <width>581</width>
          <height>20</height>
@@ -1780,7 +1832,7 @@
       <widget class="QLineEdit" name="jgLineEdit_2">
        <property name="geometry">
         <rect>
-         <x>150</x>
+         <x>180</x>
          <y>272</y>
          <width>581</width>
          <height>20</height>
@@ -1790,7 +1842,7 @@
       <widget class="QLineEdit" name="jgLineEdit_3">
        <property name="geometry">
         <rect>
-         <x>150</x>
+         <x>180</x>
          <y>302</y>
          <width>581</width>
          <height>20</height>
@@ -1800,7 +1852,7 @@
       <widget class="QLineEdit" name="jgLineEdit_4">
        <property name="geometry">
         <rect>
-         <x>150</x>
+         <x>180</x>
          <y>330</y>
          <width>581</width>
          <height>20</height>
@@ -1810,7 +1862,7 @@
       <widget class="QLineEdit" name="jgLineEdit_5">
        <property name="geometry">
         <rect>
-         <x>150</x>
+         <x>180</x>
          <y>362</y>
          <width>581</width>
          <height>20</height>
@@ -1820,7 +1872,7 @@
       <widget class="QLineEdit" name="jgLineEdit_6">
        <property name="geometry">
         <rect>
-         <x>160</x>
+         <x>180</x>
          <y>392</y>
          <width>581</width>
          <height>20</height>
@@ -1831,13 +1883,14 @@
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>1210</y>
+         <y>1500</y>
          <width>171</width>
          <height>31</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">font: 14pt &quot;仿宋&quot;;</string>
+        <string notr="true">font: 14pt &quot;仿宋&quot;;
+color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
         <string>三.日志分析</string>
@@ -1847,11 +1900,16 @@
        <property name="geometry">
         <rect>
          <x>70</x>
-         <y>1250</y>
-         <width>761</width>
-         <height>641</height>
+         <y>1540</y>
+         <width>759</width>
+         <height>261</height>
         </rect>
        </property>
+       <row>
+        <property name="text">
+         <string/>
+        </property>
+       </row>
        <column>
         <property name="text">
          <string>规则编码</string>
@@ -1872,6 +1930,32 @@
          <string>描述</string>
         </property>
        </column>
+      </widget>
+      <widget class="QLabel" name="label_24">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>170</y>
+         <width>91</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>网站域名为：</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="disLineEdit_4">
+       <property name="geometry">
+        <rect>
+         <x>180</x>
+         <y>170</y>
+         <width>581</width>
+         <height>20</height>
+        </rect>
+       </property>
       </widget>
      </widget>
     </widget>

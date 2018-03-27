@@ -9,6 +9,8 @@
 #include <QDebug>
 #include <time.h>
 #include <QDomDocument>
+#include <QCalendarWidget>
+#include <QToolButton>
 
 newTaskDialog::newTaskDialog(QWidget *parent) :
     QDialog(parent),
@@ -19,8 +21,12 @@ newTaskDialog::newTaskDialog(QWidget *parent) :
     //this->setWindowFlags(Qt::WindowTitleHint);
     this->setFixedSize(this->width(),this->height());
     QObject::connect(ui->pathButton,SIGNAL(clicked()),this,SLOT(saveReportSlot()));
+
+    QDateTime currentTime = QDateTime::currentDateTime();
+    ui->dateEdit->setDateTime(currentTime);
     ui->dateEdit->setCalendarPopup(true);
-    ui->dateEdit->setDisplayFormat("yyyy/MM/dd");
+    ui->dateEdit->setDisplayFormat("yyyy-MM-dd HH:mm:ss");
+    ui->dateEdit->calendarWidget()->findChild<QToolButton*>("qt_calendar_monthbutton")->setEnabled(false);
 
     ui->label_17->setVisible(false);
     ui->savePlaceLineEdit->setVisible(false);
@@ -162,11 +168,19 @@ void newTaskDialog::on_pushButton_clicked()
         time_t time = ui->dateEdit->dateTime().toTime_t();
         GetAsciiTime(time,strLastTime,128);
         QSqlQuery query;
-        QString strSql = QString("INSERT INTO "
-                                                "main_task(event_company,company_address,principal,phone,office_phone,email,"
+
+        QString strSql = QString("UPDATE main_task SET state='关闭' WHERE state<>'关闭'");
+        bool ok = query.exec(strSql);
+        if(!ok)
+        {
+            qWarning()<<"sql err:"<<query.lastError();
+        }
+
+        strSql = QString("INSERT INTO "
+                         "main_task(event_company,company_address,principal,phone,office_phone,email,"
                                                 "system_name,system_level,event_source,event_name,event_time,event_place,"
                                                 "event_kind,event_level,dispose_company,event_discribe,save_place,state,user_name)"
-                                                "VALUES(\'%1\',\'%2\',\'%3\',\'%4\',\'%5\',\'%6\',\'%7\',%8,\'%9\',"
+                                                "VALUES(\'%1\',\'%2\',\'%3\',\'%4\',\'%5\',\'%6\',\'%7\','%8',\'%9\',"
                                                 "\'%10\',\'%11\',\'%12\',\'%13\',\'%14\',\'%15\',\'%16\',\'%17\','开启','%18')")
                                                  .arg(ui->comLineEdit->text())
                                                  .arg(ui->comAddrLineEdit->text())
@@ -175,7 +189,7 @@ void newTaskDialog::on_pushButton_clicked()
                                                  .arg(ui->officePhoneLineEdit->text())
                                                  .arg(ui->emailLineEdit->text())
                                                  .arg(ui->systemNameLineEdit->text())
-                                                 .arg(ui->sysLevelComboBox->currentText().toInt())
+                                                 .arg(ui->sysLevelComboBox->currentText())
                                                  .arg(ui->eventSourceComboBox->currentText())
                                                  .arg(ui->eventNameLineEdit->text())
                                                  .arg(strLastTime)
@@ -187,16 +201,38 @@ void newTaskDialog::on_pushButton_clicked()
                                                  .arg(ui->savePlaceLineEdit->text())
                                                  .arg(g_user_name);
         //qDebug()<<"sql is:"<<strSql;
-        bool ok = query.exec(strSql);
+        ok = query.exec(strSql);
         if(!ok)
         {
             //qDebug()<<query.lastError();
+            qWarning()<<"sql err:"<<query.lastError();
+            QString strTitle = QString("错误");
+            QString strMsg = QString("数据库出错，请检查数据库连接后重试");
+            QString showMsg = "<font color='black'>"+strMsg+"</font>";
+            QMessageBox *WrrMsg = new QMessageBox(QMessageBox::NoIcon, strTitle, showMsg, QMessageBox::Ok, this);
+            if(NULL!=WrrMsg->button(QMessageBox::Ok))
+            {
+                WrrMsg->button(QMessageBox::Ok)->setText(QString("确定"));
+            }
+            WrrMsg->exec();
+            return;
         }
         strSql = QString("SELECT MAX(id) FROM main_task");
         ok = query.exec(strSql);
         if(!ok)
         {
             //error log
+            qWarning()<<"sql err:"<<query.lastError();
+            QString strTitle = QString("错误");
+            QString strMsg = QString("数据库出错，请检查数据库连接后重试");
+            QString showMsg = "<font color='black'>"+strMsg+"</font>";
+            QMessageBox *WrrMsg = new QMessageBox(QMessageBox::NoIcon, strTitle, showMsg, QMessageBox::Ok, this);
+            if(NULL!=WrrMsg->button(QMessageBox::Ok))
+            {
+                WrrMsg->button(QMessageBox::Ok)->setText(QString("确定"));
+            }
+            WrrMsg->exec();
+            return;
         }
         if(query.next())
         {
@@ -209,13 +245,25 @@ void newTaskDialog::on_pushButton_clicked()
         if(!ok)
         {
             //error log
+            qWarning()<<"sql err:"<<query.lastError();
+            QString strTitle = QString("错误");
+            QString strMsg = QString("数据库出错，请检查数据库连接后重试");
+            QString showMsg = "<font color='black'>"+strMsg+"</font>";
+            QMessageBox *WrrMsg = new QMessageBox(QMessageBox::NoIcon, strTitle, showMsg, QMessageBox::Ok, this);
+            if(NULL!=WrrMsg->button(QMessageBox::Ok))
+            {
+                WrrMsg->button(QMessageBox::Ok)->setText(QString("确定"));
+            }
+            WrrMsg->exec();
+            return;
         }
-        strSql = QString("INSERT INTO web_record_form(id)VALUES('%1')").arg(g_task_id);
-        ok = query.exec(strSql);
-        if(!ok)
-        {
-            //error log
-        }
+//        strSql = QString("INSERT INTO web_record_form(id)VALUES('%1')").arg(g_task_id);
+//        ok = query.exec(strSql);
+//        if(!ok)
+//        {
+//            //error log
+//        }
+
         QString action = QString("新建任务");
         QString state = QString("成功");
         operateLog(action,state);
@@ -229,140 +277,142 @@ void newTaskDialog::on_pushButton_clicked()
         }
         WrrMsg->exec();
 
-        QString eventCompany,comAddress,principal,strPhone,officePhone,strEmail,sysName,sysLevel,eventSource,
-                eventName,eventTime,eventPlace,eventKind,eventLevel,disCompany,eventDiscribe,savePlace;
 
-        if(ui->savePlaceLineEdit->text().length()>0)
-        {
-            eventCompany = ui->comLineEdit->text();
-            comAddress = ui->comAddrLineEdit->text();
-            principal = ui->principalLineEdit->text();
-            strPhone = ui->phoneLineEdi->text();
-            officePhone = ui->officePhoneLineEdit->text();
-            strEmail = ui->emailLineEdit->text();
-            sysName = ui->systemNameLineEdit->text();
-            sysLevel = ui->sysLevelComboBox->currentText();
-            eventSource = ui->eventSourceComboBox->currentText();
-            eventName = ui->eventNameLineEdit->text();
-            eventTime = strLastTime;
-            eventPlace = ui->eventPlaceLineEdit->text();
-            eventKind = ui->eventKindComboBox->currentText();
-            eventLevel = ui->eventLevelComboBox->currentText();
-            disCompany = ui->disposeComComboBox->currentText();
-            eventDiscribe = ui->discribeTextEdit->toPlainText();\
-            savePlace = ui->savePlaceLineEdit->text();
+        //注：以下为任务另存为的代码，目前版本已屏蔽
+//        QString eventCompany,comAddress,principal,strPhone,officePhone,strEmail,sysName,sysLevel,eventSource,
+//                eventName,eventTime,eventPlace,eventKind,eventLevel,disCompany,eventDiscribe,savePlace;
 
-            QDomDocument doc;
-            QDomProcessingInstruction instruction = doc.createProcessingInstruction("xml","version=\"1.0\" encoding=\"UTF-8\"");
-            doc.appendChild(instruction);
-            QDomElement task = doc.createElement("Task");
-            doc.appendChild(task);
-            QDomElement taskInfo = doc.createElement("task_info");
-            taskInfo.setAttribute("taskId",g_task_id);
-            taskInfo.setAttribute("state",QString("正常"));
-            task.appendChild(taskInfo);
-            QDomElement comInfo = doc.createElement("com_info");
-            task.appendChild(comInfo);
+//        if(ui->savePlaceLineEdit->text().length()>0)
+//        {
+//            eventCompany = ui->comLineEdit->text();
+//            comAddress = ui->comAddrLineEdit->text();
+//            principal = ui->principalLineEdit->text();
+//            strPhone = ui->phoneLineEdi->text();
+//            officePhone = ui->officePhoneLineEdit->text();
+//            strEmail = ui->emailLineEdit->text();
+//            sysName = ui->systemNameLineEdit->text();
+//            sysLevel = ui->sysLevelComboBox->currentText();
+//            eventSource = ui->eventSourceComboBox->currentText();
+//            eventName = ui->eventNameLineEdit->text();
+//            eventTime = strLastTime;
+//            eventPlace = ui->eventPlaceLineEdit->text();
+//            eventKind = ui->eventKindComboBox->currentText();
+//            eventLevel = ui->eventLevelComboBox->currentText();
+//            disCompany = ui->disposeComComboBox->currentText();
+//            eventDiscribe = ui->discribeTextEdit->toPlainText();
+//            savePlace = ui->savePlaceLineEdit->text();
 
-            QDomElement comName = doc.createElement("com_name");
-            QDomText text_1 = doc.createTextNode(eventCompany);
-            comName.appendChild(text_1);
-            comInfo.appendChild(comName);
+//            QDomDocument doc;
+//            QDomProcessingInstruction instruction = doc.createProcessingInstruction("xml","version=\"1.0\" encoding=\"UTF-8\"");
+//            doc.appendChild(instruction);
+//            QDomElement task = doc.createElement("Task");
+//            doc.appendChild(task);
+//            QDomElement taskInfo = doc.createElement("task_info");
+//            taskInfo.setAttribute("taskId",g_task_id);
+//            taskInfo.setAttribute("state",QString("正常"));
+//            task.appendChild(taskInfo);
+//            QDomElement comInfo = doc.createElement("com_info");
+//            task.appendChild(comInfo);
 
-            QDomElement comAddr = doc.createElement("com_addr");
-            QDomText text_2 = doc.createTextNode(comAddress);
-            comAddr.appendChild(text_2);
-            comInfo.appendChild(comAddr);
+//            QDomElement comName = doc.createElement("com_name");
+//            QDomText text_1 = doc.createTextNode(eventCompany);
+//            comName.appendChild(text_1);
+//            comInfo.appendChild(comName);
 
-            QDomElement princi = doc.createElement("principal");
-            QDomText text_3 = doc.createTextNode(principal);
-            princi.appendChild(text_3);
-            comInfo.appendChild(princi);
+//            QDomElement comAddr = doc.createElement("com_addr");
+//            QDomText text_2 = doc.createTextNode(comAddress);
+//            comAddr.appendChild(text_2);
+//            comInfo.appendChild(comAddr);
 
-            QDomElement phone = doc.createElement("phone");
-            QDomText text_4 = doc.createTextNode(strPhone);
-            phone.appendChild(text_4);
-            comInfo.appendChild(phone);
+//            QDomElement princi = doc.createElement("principal");
+//            QDomText text_3 = doc.createTextNode(principal);
+//            princi.appendChild(text_3);
+//            comInfo.appendChild(princi);
 
-            QDomElement office = doc.createElement("officePhone");
-            QDomText text_5 = doc.createTextNode(officePhone);
-            office.appendChild(text_5);
-            comInfo.appendChild(office);
+//            QDomElement phone = doc.createElement("phone");
+//            QDomText text_4 = doc.createTextNode(strPhone);
+//            phone.appendChild(text_4);
+//            comInfo.appendChild(phone);
 
-            QDomElement email = doc.createElement("email");
-            QDomText text_6 = doc.createTextNode(strEmail);
-            email.appendChild(text_6);
-            comInfo.appendChild(email);
+//            QDomElement office = doc.createElement("officePhone");
+//            QDomText text_5 = doc.createTextNode(officePhone);
+//            office.appendChild(text_5);
+//            comInfo.appendChild(office);
 
-            QDomElement systemName = doc.createElement("systemName");
-            QDomText text_7 = doc.createTextNode(sysName);
-            systemName.appendChild(text_7);
-            comInfo.appendChild(systemName);
+//            QDomElement email = doc.createElement("email");
+//            QDomText text_6 = doc.createTextNode(strEmail);
+//            email.appendChild(text_6);
+//            comInfo.appendChild(email);
 
-            QDomElement systemLevel = doc.createElement("systemLevel");
-            QDomText text_8 = doc.createTextNode(sysLevel);
-            systemLevel.appendChild(text_8);
-            comInfo.appendChild(systemLevel);
+//            QDomElement systemName = doc.createElement("systemName");
+//            QDomText text_7 = doc.createTextNode(sysName);
+//            systemName.appendChild(text_7);
+//            comInfo.appendChild(systemName);
 
-            QDomElement eventS = doc.createElement("eventSource");
-            QDomText text_9 = doc.createTextNode(eventSource);
-            eventS.appendChild(text_9);
-            comInfo.appendChild(eventS);
+//            QDomElement systemLevel = doc.createElement("systemLevel");
+//            QDomText text_8 = doc.createTextNode(sysLevel);
+//            systemLevel.appendChild(text_8);
+//            comInfo.appendChild(systemLevel);
 
-            QDomElement dispose_info = doc.createElement("dispose_info");
-            task.appendChild(dispose_info);
+//            QDomElement eventS = doc.createElement("eventSource");
+//            QDomText text_9 = doc.createTextNode(eventSource);
+//            eventS.appendChild(text_9);
+//            comInfo.appendChild(eventS);
 
-            QDomElement eventN = doc.createElement("eventName");
-            QDomText text_10 = doc.createTextNode(eventName);
-            eventN.appendChild(text_10);
-            dispose_info.appendChild(eventN);
+//            QDomElement dispose_info = doc.createElement("dispose_info");
+//            task.appendChild(dispose_info);
 
-            QDomElement eventT = doc.createElement("eventTime");
-            QDomText text_11 = doc.createTextNode(eventTime);
-            eventT.appendChild(text_11);
-            dispose_info.appendChild(eventT);
+//            QDomElement eventN = doc.createElement("eventName");
+//            QDomText text_10 = doc.createTextNode(eventName);
+//            eventN.appendChild(text_10);
+//            dispose_info.appendChild(eventN);
 
-            QDomElement eventP = doc.createElement("eventPlace");
-            QDomText text_12 = doc.createTextNode(eventPlace);
-            eventP.appendChild(text_12);
-            dispose_info.appendChild(eventP);
+//            QDomElement eventT = doc.createElement("eventTime");
+//            QDomText text_11 = doc.createTextNode(eventTime);
+//            eventT.appendChild(text_11);
+//            dispose_info.appendChild(eventT);
 
-            QDomElement eventK = doc.createElement("eventKind");
-            QDomText text_13 = doc.createTextNode(eventKind);
-            eventK.appendChild(text_13);
-            dispose_info.appendChild(eventK);
+//            QDomElement eventP = doc.createElement("eventPlace");
+//            QDomText text_12 = doc.createTextNode(eventPlace);
+//            eventP.appendChild(text_12);
+//            dispose_info.appendChild(eventP);
 
-            QDomElement eventL = doc.createElement("eventLevel");
-            QDomText text_14 = doc.createTextNode(eventLevel);
-            eventL.appendChild(text_14);
-            dispose_info.appendChild(eventL);
+//            QDomElement eventK = doc.createElement("eventKind");
+//            QDomText text_13 = doc.createTextNode(eventKind);
+//            eventK.appendChild(text_13);
+//            dispose_info.appendChild(eventK);
 
-            QDomElement disCom = doc.createElement("disCompany");
-            QDomText text_15 = doc.createTextNode(disCompany);
-            disCom.appendChild(text_15);
-            dispose_info.appendChild(disCom);
+//            QDomElement eventL = doc.createElement("eventLevel");
+//            QDomText text_14 = doc.createTextNode(eventLevel);
+//            eventL.appendChild(text_14);
+//            dispose_info.appendChild(eventL);
 
-            QDomElement eventDis = doc.createElement("eventDiscribe");
-            QDomText text_16 = doc.createTextNode(eventDiscribe);
-            eventDis.appendChild(text_16);
-            dispose_info.appendChild(eventDis);
+//            QDomElement disCom = doc.createElement("disCompany");
+//            QDomText text_15 = doc.createTextNode(disCompany);
+//            disCom.appendChild(text_15);
+//            dispose_info.appendChild(disCom);
 
-            QDomElement svPlace = doc.createElement("savePlace");
-            QDomText text_17 = doc.createTextNode(savePlace);
-            svPlace.appendChild(text_17);
-            dispose_info.appendChild(svPlace);
+//            QDomElement eventDis = doc.createElement("eventDiscribe");
+//            QDomText text_16 = doc.createTextNode(eventDiscribe);
+//            eventDis.appendChild(text_16);
+//            dispose_info.appendChild(eventDis);
 
-            QFile file(saveFileName);
-            if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate |QIODevice::Text))
-            {
-                qWarning()<<"open file fail ";
-                return;
-            }
-            QTextStream out(&file);
-            out.setCodec("UTF-8");
-            doc.save(out,4,QDomNode::EncodingFromTextStream);
-            file.close();
-        }
+//            QDomElement svPlace = doc.createElement("savePlace");
+//            QDomText text_17 = doc.createTextNode(savePlace);
+//            svPlace.appendChild(text_17);
+//            dispose_info.appendChild(svPlace);
+
+//            QFile file(saveFileName);
+//            if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate |QIODevice::Text))
+//            {
+//                qWarning()<<"open file fail ";
+//                return;
+//            }
+//            QTextStream out(&file);
+//            out.setCodec("UTF-8");
+//            doc.save(out,4,QDomNode::EncodingFromTextStream);
+//            file.close();
+//        }
 
         if(mmw)
         {

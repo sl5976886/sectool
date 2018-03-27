@@ -8,6 +8,7 @@
 #include <QLibrary>
 #include <QDirIterator>
 #include <QByteArray>
+#include <QDateTime>
 
 ReportThread::ReportThread(QObject *parent) : QThread(parent)
 {
@@ -55,34 +56,42 @@ void analyzeXml2(QString code,QStringList &list)
         QString strId = QString("%1").arg(g_task_id);
         mOnlinePath=mOnlinePath+"\\"+strId+"\\";
 
-        //判断路径是否存在
-        QDir dir(mOnlinePath);
-        if(!dir.exists())
-        {
-            qWarning()<<"return xml dir not exist!";
-            return;
-        }
-
-        QSettings settings_2(localPath,QSettings::IniFormat);
-        QString mOfflinePath = settings_2.value("autoscan/ScanDir").toString();
-
          //获取所选文件类型过滤器
         QStringList filters;
         filters<<QString("*.xml");
 
          //定义迭代器并设置过滤器
-        QDirIterator dir_iterator(mOnlinePath,
+        QDir dir(mOnlinePath);
+        QStringList online_list;
+        if(dir.exists())
+        {
+            QDirIterator dir_iterator(mOnlinePath,
+                filters,
+                QDir::Files | QDir::NoSymLinks,
+                QDirIterator::Subdirectories);
+            while(dir_iterator.hasNext())
+            {
+                dir_iterator.next();
+                QFileInfo file_info =dir_iterator.fileInfo();
+                QString absolute_file_path =file_info.absoluteFilePath();
+                online_list.append(absolute_file_path);
+            }
+        }
+
+        //已经解析完的xml也要去匹配
+        QString mBakPath = settings.value("autoscan/comfilepath").toString();
+        QDirIterator dir_iterator1(mBakPath,
             filters,
             QDir::Files | QDir::NoSymLinks,
             QDirIterator::Subdirectories);
-        QStringList online_list;
-        while(dir_iterator.hasNext())
+        while(dir_iterator1.hasNext())
         {
-            dir_iterator.next();
-            QFileInfo file_info =dir_iterator.fileInfo();
-            QString absolute_file_path =file_info.absoluteFilePath();
-            online_list.append(absolute_file_path);
+            dir_iterator1.next();
+            QFileInfo file_info1 =dir_iterator1.fileInfo();
+            QString absolute_file_path1 =file_info1.absoluteFilePath();
+            online_list.append(absolute_file_path1);
         }
+
         QString xmlFile;
         QDomDocument doc;
         for(int i=0;i<online_list.size();i++)
@@ -100,6 +109,17 @@ void analyzeXml2(QString code,QStringList &list)
             if(code==QString("012"))
             {
                 QDomElement docElem = doc.documentElement();
+
+                QDomNodeList nodeswitch=docElem.elementsByTagName("task_info");
+                QDomNode node = nodeswitch.item(0);
+                QDomElement elemnodeswitch=node.toElement();
+                QString taskCode = qPrintable(elemnodeswitch.attribute("taskcode"));
+                QString strTaskId = QString::number(g_task_id,10);
+                if(taskCode!=strTaskId)
+                {
+                    continue;
+                }
+
                 QDomNodeList nodeswitch_1=docElem.elementsByTagName("tool_info");
                 QDomNode node_1 = nodeswitch_1.item(0);
                 QDomElement elemnodeswitch_1=node_1.toElement();
@@ -113,6 +133,10 @@ void analyzeXml2(QString code,QStringList &list)
                 QDomNode node_2 = nodeswitch_2.item(0);
                 QDomElement element_2 = node_2.toElement();
                 QString strIp = qPrintable(element_2.attribute("dest_ip"));
+                if(list.contains(strIp))
+                {
+                    continue;
+                }
                 list.append(strIp);
 
                 QDomNodeList nodeswitch_3 = docElem.elementsByTagName("operation_info");
@@ -155,6 +179,17 @@ void analyzeXml2(QString code,QStringList &list)
             else if(code==QString("011"))  //系统漏洞
             {
                 QDomElement docElem = doc.documentElement();
+
+                QDomNodeList nodeswitch=docElem.elementsByTagName("task_info");
+                QDomNode node = nodeswitch.item(0);
+                QDomElement elemnodeswitch=node.toElement();
+                QString taskCode = qPrintable(elemnodeswitch.attribute("taskcode"));
+                QString strTaskId = QString::number(g_task_id,10);
+                if(taskCode!=strTaskId)
+                {
+                    continue;
+                }
+
                 QDomNodeList nodeswitch_1=docElem.elementsByTagName("tool_info");
                 QDomNode node_1 = nodeswitch_1.item(0);
                 QDomElement elemnodeswitch_1=node_1.toElement();
@@ -209,6 +244,17 @@ void analyzeXml2(QString code,QStringList &list)
             else if(code==QString("013"))     //数据库
             {
                 QDomElement docElem = doc.documentElement();
+
+                QDomNodeList nodeswitch=docElem.elementsByTagName("task_info");
+                QDomNode node = nodeswitch.item(0);
+                QDomElement elemnodeswitch=node.toElement();
+                QString taskCode = qPrintable(elemnodeswitch.attribute("taskcode"));
+                QString strTaskId = QString::number(g_task_id,10);
+                if(taskCode!=strTaskId)
+                {
+                    continue;
+                }
+
                 QDomNodeList nodeswitch_1=docElem.elementsByTagName("tool_info");
                 QDomNode node_1 = nodeswitch_1.item(0);
                 QDomElement elemnodeswitch_1=node_1.toElement();
@@ -277,11 +323,12 @@ void analyzeXml2(QString code,QStringList &list)
         dir.setFilter(QDir::Files | QDir::NoSymLinks); //设置类型过滤器，只为文件格式
         dir.setNameFilters(filters);
 
+        //注：以前没有检验已经解析完的xml，所以这边需要判断，现在不需要
         int dir_count = dir.count();
-        if(dir_count <= 0)
-        {
-            return;
-        }
+//        if(dir_count <= 0)
+//        {
+//            return;
+//        }
 
         QStringList file_list;
         //获取分隔符
@@ -296,11 +343,14 @@ void analyzeXml2(QString code,QStringList &list)
             separator = QChar();
         }
 
-        for(int i=0;i<dir_count;i++)
+        if(dir_count>0)
         {
-            QString file_name = dir[i];  //文件名称
-            QString file_path = mOfflinePath + separator + file_name;   //文件全路径
-            file_list.append(file_path);
+            for(int i=0;i<dir_count;i++)
+            {
+                QString file_name = dir[i];  //文件名称
+                QString file_path = mOfflinePath + separator + file_name;   //文件全路径
+                file_list.append(file_path);
+            }
         }
 
         QString xmlFile;
@@ -321,7 +371,7 @@ void analyzeXml2(QString code,QStringList &list)
             QString strSql;
             if(code==QString("006"))    //恶意代码
             {
-                strSql = QString("SELECT ip_address FROM check_task WHERE id=%1 AND run_tool='网站恶意代码检查工具'")
+                strSql = QString("SELECT ip_address FROM check_task WHERE id=%1 AND run_tool='网站恶意代码检查工具' AND ifWrite=0")
                         .arg(g_task_id);
                 bool ok = query.exec(strSql);
                 if(!ok)
@@ -345,17 +395,27 @@ void analyzeXml2(QString code,QStringList &list)
                     continue;
                 }
 
+                QDomNodeList nodeswitch_5=docElem.elementsByTagName("task_info");
+                QDomNode node_5 = nodeswitch_5.item(0);
+                QDomElement elemnodeswitch_5=node_5.toElement();
+                QString taskCode = elemnodeswitch_5.attribute("taskcode");
+                QString strTaskId = QString::number(g_task_id,10);
+                if(taskCode!=strTaskId)
+                {
+                    continue;
+                }
+
                 QDomNodeList nodeswitch_2 = docElem.elementsByTagName("operation_info");
                 QDomNode node_2 = nodeswitch_2.item(0);
                 QDomElement element_2 = node_2.toElement();
                 QString strIp_2 = element_2.attribute("src_ip");
                 QStringList str_list = strIp_2.split(";");
-                QString hostIp = str_list[0];
-                if(!ifHaveIp2(hostIp,ip_list))
+                int count = str_list.count();
+                QString hostIp = str_list[count-2];
+                if(ifHaveIp2(hostIp,ip_list))
                 {
-                    continue;
+                    list.append(hostIp);
                 }
-                list.append(hostIp);
 
                 QDomNodeList nodeswitch_3 = docElem.elementsByTagName("operation_info");
                 QDomNode node_3 = nodeswitch_3.item(0);
@@ -397,17 +457,28 @@ void analyzeXml2(QString code,QStringList &list)
                 {
                     continue;
                 }
+
+                QDomNodeList nodeswitch_5=docElem.elementsByTagName("task_info");
+                QDomNode node_5 = nodeswitch_5.item(0);
+                QDomElement elemnodeswitch_5=node_5.toElement();
+                QString taskCode = elemnodeswitch_5.attribute("taskcode");
+                QString strTaskId = QString::number(g_task_id,10);
+                if(taskCode!=strTaskId)
+                {
+                    continue;
+                }
+
                 QDomNodeList nodeswitch_2 = docElem.elementsByTagName("operation_info");
                 QDomNode node_2 = nodeswitch_2.item(0);
                 QDomElement element_2 = node_2.toElement();
                 QString strIp_2 = element_2.attribute("src_ip");
                 QStringList str_list = strIp_2.split(";");
-                QString hostIp = str_list[0];
-                if(!ifHaveIp2(hostIp,ip_list))
+                int count = str_list.count();
+                QString hostIp = str_list[count-2];
+                if(ifHaveIp2(hostIp,ip_list))
                 {
-                    continue;
+                    list.append(hostIp);
                 }
-                list.append(hostIp);
 
                 QDomNodeList nodeswitch_3 = docElem.elementsByTagName("operation_info");
                 QDomNode node_3 = nodeswitch_3.item(0);
@@ -449,17 +520,28 @@ void analyzeXml2(QString code,QStringList &list)
                 {
                     continue;
                 }
+
+                QDomNodeList nodeswitch_5=docElem.elementsByTagName("task_info");
+                QDomNode node_5 = nodeswitch_5.item(0);
+                QDomElement elemnodeswitch_5=node_5.toElement();
+                QString taskCode = elemnodeswitch_5.attribute("taskcode");
+                QString strTaskId = QString::number(g_task_id,10);
+                if(taskCode!=strTaskId)
+                {
+                    continue;
+                }
+
                 QDomNodeList nodeswitch_2 = docElem.elementsByTagName("operation_info");
                 QDomNode node_2 = nodeswitch_2.item(0);
                 QDomElement element_2 = node_2.toElement();
                 QString strIp_2 = element_2.attribute("src_ip");
                 QStringList str_list = strIp_2.split(";");
-                QString hostIp = str_list[0];
-                if(!ifHaveIp2(hostIp,ip_list))
+                int count = str_list.count();
+                QString hostIp = str_list[count-2];
+                if(ifHaveIp2(hostIp,ip_list))
                 {
-                    continue;
+                    list.append(hostIp);
                 }
-                list.append(hostIp);
 
                 QDomNodeList nodeswitch_3 = docElem.elementsByTagName("operation_info");
                 QDomNode node_3 = nodeswitch_3.item(0);
@@ -647,7 +729,7 @@ void ReportThread::run()
             }
 
             //网站描述、网站开发架构基本情况
-            strSql = QString("SELECT * FROM web_record_form WHERE id=%1").arg(g_task_id);
+            strSql = QString("SELECT * FROM safe_record_form WHERE id=%1").arg(g_task_id);
             ok = query.exec(strSql);
             if(!ok)
             {
@@ -658,22 +740,75 @@ void ReportThread::run()
             if(query.next())
             {
                 QString mChName = query.value(1).toString();
-                QString mIp = query.value(2).toString();
-                QString mWebsite = query.value(3).toString();
-                QString mDiscribe = QString("网站中文名为：%1\n网站ip地址为：%2\n网站网址为：%3\n")
-                        .arg(mChName).arg(mIp).arg(mWebsite);
+                if(mChName.isEmpty())
+                {
+                    mChName = QString("未填写");
+                }
+                QString mSysName = query.value(3).toString();
+                if(mSysName.isEmpty())
+                {
+                    mSysName = QString("未填写");
+                }
+                QString mIp = query.value(6).toString();
+                if(mIp.isEmpty())
+                {
+                    mIp = QString("未填写");
+                }
+                QString mWebsite = query.value(5).toString();
+                if(mWebsite.isEmpty())
+                {
+                    mWebsite = QString("未填写");
+                }
+                QString mDiscribe = QString("单位名称为：%1\n系统名称为：%2\n网站IP地址为：%3\n网站域名为：%4\n")
+                        .arg(mChName).arg(mSysName).arg(mIp).arg(mWebsite);
                 mBa = mDiscribe.toLocal8Bit();
                 cStr = mBa.data();
                 dllReplaceText("{11000}",cStr);
 
-                QString mLanguage = query.value(20).toString();
-                QString mBuild = query.value(21).toString();
-                QString mMiddle = query.value(22).toString();
-                QString mData = query.value(23).toString();
-                QString mServer = query.value(24).toString();
-                QString mRemote = query.value(25).toString();
-                QString mJiagou = QString("开发语言：%1\n建站平台：%2\n中间件：%3\n数据库：%4\n服务器：%5\n"
-                                                         "远程维护方式：%6\n").arg(mLanguage).arg(mBuild).arg(mMiddle)
+                //以下元素命名经过修改所以全都不匹配
+                QString mLanguage;
+                QDateTime mTime1 = query.value(14).toDateTime();
+                if(mTime1.isValid())
+                {
+                    mLanguage = mTime1.toString("yyyy-MM-dd hh:mm:ss");
+                }
+                else
+                {
+                    mLanguage = QString("未填写");
+                }
+                QString mBuild = query.value(15).toString();
+                if(mBuild.isEmpty())
+                {
+                    mBuild = QString("未填写");
+                }
+                QDateTime mTime2 = query.value(17).toDateTime();
+                QString mMiddle;
+                if(mTime2.isValid())
+                {
+                    mMiddle = mTime2.toString("yyyy-MM-dd hh:mm:ss");
+                }
+                else
+                {
+                    mMiddle = QString("未填写");
+                }
+
+                QString mData = query.value(18).toString();
+                if(mData.isEmpty())
+                {
+                    mData = QString("未填写");
+                }
+                QString mServer = query.value(21).toString();
+                if(mServer.isEmpty())
+                {
+                    mServer = QString("未填写");
+                }
+                QString mRemote = query.value(22).toString();
+                if(mRemote.isEmpty())
+                {
+                    mRemote = QString("未填写");
+                }
+                QString mJiagou = QString("发现时间：%1\n发现来源：%2\n遭受攻击时间：%3\n系统遭破坏程度：%4\n调查单位：%5\n"
+                                                         "调查人：%6\n").arg(mLanguage).arg(mBuild).arg(mMiddle)
                         .arg(mData).arg(mServer).arg(mRemote);
                 mBa = mJiagou.toLocal8Bit();
                 cStr = mBa.data();
@@ -690,17 +825,30 @@ void ReportThread::run()
                 return;
             }
             QStringList hostList;
-            QString mIp,mOperate,mDatabase,mMiddle,mKind;
+            QString mIp,mOperate,mName,mMiddle,mKind;
+            QMap<QString,QString> mHostMap;
             while(query.next())
             {
                 mIp = query.value(2).toString();
                 mOperate = query.value(6).toString();
-                mDatabase = query.value(4).toString();
+                mName = query.value(1).toString();
                 mMiddle = query.value(5).toString();
                 mKind = query.value(3).toString();
+                if(mHostMap.contains(mIp))
+                {
+                    QString hostName = mHostMap[mIp];
+                    if(hostName==mName)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        mHostMap.insert(mIp,mName);
+                    }
+                }
                 hostList.append(mIp);
+                hostList.append(mName);
                 hostList.append(mOperate);
-                hostList.append(mDatabase);
                 hostList.append(mMiddle);
                 hostList.append(mKind);
             }

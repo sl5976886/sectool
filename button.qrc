@@ -4,5 +4,6 @@
         <file>button/close.png</file>
         <file>button/subtract.png</file>
         <file>button/logoSY.png</file>
+        <file>button/logo.png</file>
     </qresource>
 </RCC>

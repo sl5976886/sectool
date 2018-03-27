@@ -56,8 +56,8 @@ private slots:
 
     void on_hostDelButton_clicked();
 
-    void on_actionMinimize_triggered();     //最小化窗口
-    void on_actionClose_triggered();        //关闭窗口
+    void Minimize_triggered();     //最小化窗口
+    void Close_triggered();        //关闭窗口
 
     void on_saveButton_clicked();
 

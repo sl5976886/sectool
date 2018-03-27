@@ -40,6 +40,8 @@ private slots:
     void other_refresh();
 
     void task_fresh_slot();
+
+    void double_click_slot(QModelIndex index);
 signals:
     void openTask();
 

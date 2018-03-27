@@ -132,7 +132,7 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>新增用户</string>
@@ -148,7 +148,7 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>提交修改</string>
@@ -164,7 +164,7 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>删除用户</string>
@@ -190,7 +190,7 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>撤销修改</string>
@@ -206,7 +206,7 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>刷新数据</string>
@@ -256,7 +256,7 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>新增单位</string>
@@ -272,7 +272,7 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>提交修改</string>
@@ -288,7 +288,7 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>撤销修改</string>
@@ -304,7 +304,7 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>刷新数据</string>
@@ -361,7 +361,7 @@
     <widget class="QLabel" name="label_6">
      <property name="geometry">
       <rect>
-       <x>390</x>
+       <x>400</x>
        <y>10</y>
        <width>21</width>
        <height>16</height>
@@ -376,8 +376,8 @@
       <rect>
        <x>270</x>
        <y>6</y>
-       <width>111</width>
-       <height>22</height>
+       <width>121</width>
+       <height>23</height>
       </rect>
      </property>
      <property name="dateTime">
@@ -394,10 +394,10 @@
     <widget class="QDateTimeEdit" name="endTimeEdit">
      <property name="geometry">
       <rect>
-       <x>410</x>
+       <x>420</x>
        <y>6</y>
-       <width>111</width>
-       <height>22</height>
+       <width>121</width>
+       <height>23</height>
       </rect>
      </property>
      <property name="dateTime">
@@ -449,7 +449,7 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>查询</string>
@@ -465,7 +465,7 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>清空</string>
@@ -494,7 +494,7 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>导出</string>
@@ -510,7 +510,7 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>备份</string>
@@ -526,7 +526,7 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>恢复</string>
@@ -542,7 +542,7 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>清理</string>
@@ -553,7 +553,7 @@
       <rect>
        <x>20</x>
        <y>100</y>
-       <width>621</width>
+       <width>619</width>
        <height>351</height>
       </rect>
      </property>
@@ -738,7 +738,7 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>保存修改</string>
@@ -754,7 +754,7 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>恢复出厂设置</string>

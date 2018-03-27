@@ -149,7 +149,7 @@
      <x>360</x>
      <y>300</y>
      <width>70</width>
-     <height>25</height>
+     <height>27</height>
     </rect>
    </property>
    <property name="text">
@@ -160,16 +160,75 @@
    <property name="geometry">
     <rect>
      <x>270</x>
-     <y>300</y>
+     <y>299</y>
      <width>70</width>
-     <height>25</height>
+     <height>30</height>
     </rect>
    </property>
    <property name="text">
     <string/>
    </property>
   </widget>
+  <widget class="QLabel" name="label_11">
+   <property name="geometry">
+    <rect>
+     <x>85</x>
+     <y>65</y>
+     <width>8</width>
+     <height>8</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="image.qrc">:/icon/image/asterisk.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_12">
+   <property name="geometry">
+    <rect>
+     <x>85</x>
+     <y>105</y>
+     <width>8</width>
+     <height>8</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="image.qrc">:/icon/image/asterisk.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_13">
+   <property name="geometry">
+    <rect>
+     <x>62</x>
+     <y>145</y>
+     <width>8</width>
+     <height>8</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="image.qrc">:/icon/image/asterisk.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="image.qrc"/>
+ </resources>
  <connections/>
 </ui>

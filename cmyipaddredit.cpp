@@ -187,6 +187,7 @@ void CMyIpAddrEdit::setEnabled(bool bEnable)
 
 void CMyIpAddrEdit::resizeEvent(QResizeEvent* event)
 {
+    Q_UNUSED(event);
     int nWidth = width()/4;
     int nHeight = height();
     ip_part1_->setGeometry(QRect(0, 0, nWidth, nHeight));

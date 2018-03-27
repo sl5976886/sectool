@@ -19,7 +19,7 @@ public:
     QPushButton *certainButton;
 
 private slots:
-    void on_determineButton_clicked();
+    void determineButton_slot();
 
 private:
     Ui::newUserDialog *ui;

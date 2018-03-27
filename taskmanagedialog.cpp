@@ -119,6 +119,96 @@ void taskManageDialog::on_newButton_clicked()
     ntd.exec();
 }
 
+void taskManageDialog::double_click_slot(QModelIndex index)
+{
+    int curRow = index.row();
+    QModelIndex index_2=taskTableModel->index(curRow,1,QModelIndex());
+    QString strState = index_2.data().toString();
+    QSqlQuery query_o;
+    QString strSql_o = QString("SELECT * FROM main_task WHERE state='开启'");
+    query_o.exec(strSql_o);
+    int queryCount = query_o.size();
+    if(g_task_id!=0&&queryCount>1)
+    {
+        QString strTitle = QString("已有打开的任务");
+        QString strMsg = QString("你确定关闭之前的任务吗？");
+        QMessageBox *WrrMsg = new QMessageBox(QMessageBox::NoIcon, strTitle, strMsg, QMessageBox::Ok|QMessageBox::No,0);
+        if(NULL!=WrrMsg->button(QMessageBox::Ok))
+        {
+            WrrMsg->button(QMessageBox::Ok)->setText(QString("确定"));
+        }
+        if(NULL!=WrrMsg->button(QMessageBox::No))
+        {
+            WrrMsg->button(QMessageBox::No)->setText(QString("取消"));
+        }
+        int ok = WrrMsg->exec();
+
+        if(ok == QMessageBox::No)
+        {
+            return;
+        }
+        else
+        {
+            QSqlQuery query1;
+            QString strSql1 = QString("UPDATE main_task SET state = '关闭' WHERE id = %1").arg(g_task_id);
+            query1.exec(strSql1);
+        }
+    }
+    else if(g_task_id!=0&&queryCount!=0&&strState==QString("关闭"))
+    {
+        QString strTitle = QString("已有打开的任务");
+        QString strMsg = QString("你确定关闭之前的任务吗？");
+        QString showMsg = "<font color='black'>"+strMsg+"</font>";
+        QMessageBox *WrrMsg = new QMessageBox(QMessageBox::NoIcon, strTitle, showMsg, QMessageBox::Ok|QMessageBox::No,this);
+        if(NULL!=WrrMsg->button(QMessageBox::Ok))
+        {
+            WrrMsg->button(QMessageBox::Ok)->setText(QString("确定"));
+        }
+        if(NULL!=WrrMsg->button(QMessageBox::No))
+        {
+            WrrMsg->button(QMessageBox::No)->setText(QString("取消"));
+        }
+        int ok = WrrMsg->exec();
+
+        if(ok == QMessageBox::No)
+        {
+            return;
+        }
+        else
+        {
+            QSqlQuery query1;
+            QString strSql1 = QString("UPDATE main_task SET state = '关闭' WHERE id = %1").arg(g_task_id);
+            query1.exec(strSql1);
+        }
+    }
+    if(curRow==-1)
+    {
+        QString strTitle = QString("警告");
+        QString strMsg = QString("没有选中的任务");
+        QString showMsg = "<font color='black'>"+strMsg+"</font>";
+        QMessageBox *WrrMsg = new QMessageBox(QMessageBox::NoIcon, strTitle, showMsg, QMessageBox::Ok, this);
+        if(NULL!=WrrMsg->button(QMessageBox::Ok))
+        {
+            WrrMsg->button(QMessageBox::Ok)->setText(QString("确定"));
+        }
+        WrrMsg->exec();
+        return;
+    }
+    QModelIndex index_1=taskTableModel->index(curRow,0,QModelIndex());
+    g_task_id = index_1.data().toInt();
+    QSqlQuery query;
+    QString strSql = QString("UPDATE main_task SET state = '开启' WHERE id = '%1'").arg(g_task_id);
+    bool ok = query.exec(strSql);
+    if(!ok)
+    {
+        //error log
+    }
+    this->close();
+
+    connect(this,SIGNAL(openTask()),mmw,SLOT(openTaskShow_slot()));
+    emit openTask();
+}
+
 //TableView init
 void taskManageDialog::taskTableViewInit()
 {
@@ -145,13 +235,11 @@ void taskManageDialog::taskTableViewInit()
     taskTableModel->setHeaderData(15,Qt::Horizontal,QString("事件级别"));
     taskTableModel->setHeaderData(16,Qt::Horizontal,QString("处置单位"));
     taskTableModel->setHeaderData(17,Qt::Horizontal,QString("事件描述"));
-    taskTableModel->setHeaderData(18,Qt::Horizontal,QString("保存位置"));
     ui->taskTableView->setModel(taskTableModel);
     ui->taskTableView->verticalHeader()->setVisible(false);
     ui->taskTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->taskTableView->horizontalHeader()->setSectionsClickable(false);
     //ui->taskTableView->hideColumn(0);
-    ui->taskTableView->setColumnWidth(18,220);
     ui->taskTableView->setColumnWidth(17,220);
     ui->taskTableView->setColumnWidth(15,90);
     ui->taskTableView->setColumnWidth(14,60);
@@ -160,12 +248,15 @@ void taskManageDialog::taskTableViewInit()
     ui->taskTableView->setColumnWidth(10,60);
     ui->taskTableView->setColumnWidth(1,60);
     ui->taskTableView->setColumnWidth(0,60);
+    ui->taskTableView->hideColumn(18);
     ui->taskTableView->hideColumn(19);
     for(int i=0;i<taskTableModel->rowCount();i++)
     {
         ui->taskTableView->setRowHeight(i,30);
     }
     ui->taskTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+    connect(ui->taskTableView,SIGNAL(doubleClicked(QModelIndex)),this,SLOT(double_click_slot(QModelIndex)));
 }
 
 //刷新显示
@@ -355,10 +446,22 @@ void taskManageDialog::on_deleteButton_clicked()
         return;
     }
 
-
     //删除选中的行
     QItemSelectionModel *selections = ui->taskTableView->selectionModel();
     QModelIndexList selected = selections->selectedIndexes();
+    if(selected.count()==0)
+    {
+        QString strTitle = QString("提示");
+        QString strMsg = QString("请选中一个任务");
+        QString showMsg = "<font color='black'>"+strMsg+"</font>";
+        QMessageBox *WrrMsg = new QMessageBox(QMessageBox::NoIcon, strTitle, showMsg, QMessageBox::Ok, this);
+        if(NULL!=WrrMsg->button(QMessageBox::Ok))
+        {
+            WrrMsg->button(QMessageBox::Ok)->setText(QString("确定"));
+        }
+        WrrMsg->exec();
+        return;
+    }
     QMap<int, int> rowMap;
     foreach (QModelIndex index, selected)
     {
@@ -460,7 +563,11 @@ void taskManageDialog::on_deleteButton_clicked()
             WrrMsg->exec();
             return;
         }
-        g_task_id = 0;
+        qDebug()<<"delete task:"<<mTaskId;
+        if(g_task_id==mTaskId)
+        {
+            g_task_id = 0;
+        }
     }
 }
 
@@ -472,6 +579,22 @@ void taskManageDialog::on_closeButton_clicked()
     {
         QString strTitle = QString("警告");
         QString strMsg = QString("没有选中的任务");
+        QString showMsg = "<font color='black'>"+strMsg+"</font>";
+        QMessageBox *WrrMsg = new QMessageBox(QMessageBox::NoIcon, strTitle, showMsg, QMessageBox::Ok, this);
+        if(NULL!=WrrMsg->button(QMessageBox::Ok))
+        {
+            WrrMsg->button(QMessageBox::Ok)->setText(QString("确定"));
+        }
+        WrrMsg->exec();
+        return;
+    }
+
+    QModelIndex index=taskTableModel->index(curRow,1,QModelIndex());
+    QString strState = index.data().toString();
+    if(strState==QString("关闭"))
+    {
+        QString strTitle = QString("提示");
+        QString strMsg = QString("当前任务已关闭");
         QString showMsg = "<font color='black'>"+strMsg+"</font>";
         QMessageBox *WrrMsg = new QMessageBox(QMessageBox::NoIcon, strTitle, showMsg, QMessageBox::Ok, this);
         if(NULL!=WrrMsg->button(QMessageBox::Ok))
@@ -530,6 +653,7 @@ void taskManageDialog::on_closeButton_clicked()
                 {
                     strSql = QString("UPDATE main_task SET state = '关闭' WHERE id = %1").arg(mTaskId);
                     query.exec(strSql);
+                    qDebug()<<"close task:"<<g_task_id;
                     g_task_id = 0;
                     refreshTableView();
                 }
@@ -567,15 +691,15 @@ void taskManageDialog::on_saveButton_clicked()
     QString saveFileName = QFileDialog::getSaveFileName(this,QString("另存为任务"),".","(*.pro)");
     if(saveFileName.isEmpty())
     {
-        QString strTitle = QString("警告");
-        QString strMsg = QString("请选择文件");
-        QString showMsg = "<font color='black'>"+strMsg+"</font>";
-        QMessageBox *WrrMsg = new QMessageBox(QMessageBox::NoIcon, strTitle, showMsg, QMessageBox::Ok, this);
-        if(NULL!=WrrMsg->button(QMessageBox::Ok))
-        {
-            WrrMsg->button(QMessageBox::Ok)->setText(QString("确定"));
-        }
-        WrrMsg->exec();
+//        QString strTitle = QString("警告");
+//        QString strMsg = QString("请选择文件");
+//        QString showMsg = "<font color='black'>"+strMsg+"</font>";
+//        QMessageBox *WrrMsg = new QMessageBox(QMessageBox::NoIcon, strTitle, showMsg, QMessageBox::Ok, this);
+//        if(NULL!=WrrMsg->button(QMessageBox::Ok))
+//        {
+//            WrrMsg->button(QMessageBox::Ok)->setText(QString("确定"));
+//        }
+//        WrrMsg->exec();
         return;
     }
     else
@@ -752,9 +876,10 @@ void taskManageDialog::on_modifyButton_clicked()
         return;
     }
     QModelIndex index=taskTableModel->index(curRow,0,QModelIndex());
-    g_task_id = index.data().toInt();
+    int mId = index.data().toInt();
 
     modifyDialog mdd(this);
+    mdd.getTaskId(mId);
     connect(mdd.certainButton,SIGNAL(clicked()),this,SLOT(other_refresh()));
     mdd.setModal(true);
     mdd.show();

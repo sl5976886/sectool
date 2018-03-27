@@ -5,15 +5,18 @@
 #include <QMessageBox>
 #include <QSettings>
 #include <QDomDocument>
+#include <QMutex>
 
 RenderThread::RenderThread(QObject *parent) : QThread(parent)
 {
     stopped = false;
+    qInstallMessageHandler(outputMessage);
+//    qDebug() << "RenderThread::RenderThread()";
 }
 
 RenderThread::~RenderThread()
 {
-    qDebug() << "RenderThread::~RenderThread()";
+//    qDebug() << "RenderThread::~RenderThread()";
 }
 
 void RenderThread::test()
@@ -68,6 +71,8 @@ QString toolName(QString toolCode)
     return strName;
 }
 
+extern QMutex mutex1;
+
 void RenderThread::run()
 {
     while(!stopped)
@@ -79,6 +84,7 @@ void RenderThread::run()
         QString offlinePath = settings.value("autoscan/ScanDir").toString();
 
         QMap<QString,QStringList>::iterator it;
+        mutex1.lock();
         for(it=g_ip_map.begin();it!=g_ip_map.end();++it)
         {
             QStringList mList = it.value();
@@ -107,6 +113,11 @@ void RenderThread::run()
                         query.exec(strSql);
                         break;
                     }
+                }
+                else
+                {
+//                    qWarning()<<"path is not exist:"<<strPath;
+                    break;
                 }
 
                 QStringList file_list;
@@ -167,7 +178,6 @@ void RenderThread::run()
                     file_list.append(file_path);
                 }
 
-
                 QDomDocument doc;
                 for(int j=0;j<file_list.size();j++)
                 {
@@ -210,6 +220,7 @@ void RenderThread::run()
                 }
             }
         }
+        mutex1.unlock();
         sleep(5);
     }
 }

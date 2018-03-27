@@ -539,7 +539,7 @@ void wordDialog::on_wordButton_clicked()
     QString saveFileName = QFileDialog::getSaveFileName(this,QString("保存文件"),QDir::currentPath(),"(*.docx)");
     if(saveFileName.isEmpty())
     {
-        QMessageBox::information(this,QString("出错"),QString("请选择文件"));
+//        QMessageBox::information(this,QString("出错"),QString("请选择文件"));
         return;
     }
     QLibrary mylib("WordEngine.dll");

@@ -50,6 +50,7 @@ void addHostDialog::radioButtonInit()
     kindGroup->setId(ui->kindRadioButton_1,1);
     kindGroup->setId(ui->kindRadioButton_2,2);
     kindGroup->setId(ui->kindRadioButton_3,3);
+    ui->kindRadioButton_1->setChecked(true);
 
     sysGroup = new QButtonGroup(this);
     sysGroup->setExclusive(true);
@@ -57,6 +58,7 @@ void addHostDialog::radioButtonInit()
     sysGroup->addButton(ui->sysRadioButton_2);
     sysGroup->setId(ui->sysRadioButton_1,1);
     sysGroup->setId(ui->sysRadioButton_2,2);
+    ui->sysRadioButton_2->setChecked(true);
 
     dataGroup = new QButtonGroup(this);
     dataGroup->setExclusive(false);

@@ -42,6 +42,8 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QMovie>
+#include <QMutex>
+#include <QDirIterator>
 
 
 disposeDialog::disposeDialog(QWidget *parent) :
@@ -59,6 +61,7 @@ disposeDialog::disposeDialog(QWidget *parent) :
     operateLog(action,state);
     ui->tabWidget->setCurrentIndex(0);
     ui->secondRadioButton->setVisible(false);
+    ui->label_7->setVisible(false);
     //表格展现
     safeTableWidgetShow();
     webTableWidgetShow();
@@ -75,9 +78,6 @@ disposeDialog::disposeDialog(QWidget *parent) :
     QObject::connect(ui->secondRadioButton,SIGNAL(clicked()),this,SLOT(chooseSecondWidgetSlot()));
     ui->firstRadioButton->setVisible(false);
 
-    QString style = QString("QPushButton{background-color:qlineargradient(spread:reflect, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(38, 117, 216, 255), stop:1 rgba(42, 156, 230, 255));color: white;font:87 9pt Arial Rounded MT Bold ;border-radius:3px;border-style:outset;}"
-                            "QPushButton:hover{background-color:rgb(52,197,252); color: white;}"
-                            "QPushButton:pressed{background-color:rgb(85, 170, 255);border-style: inset;}");
 
     //setScrollBarSheet();
 
@@ -112,12 +112,14 @@ disposeDialog::~disposeDialog()
 }
 
 
+QMutex mutex1;
+
 void disposeDialog::safeTableWidgetShow()
 {
     ui->safeTableWidget->setColumnWidth(0,137);
     ui->safeTableWidget->setColumnWidth(1,223);
     ui->safeTableWidget->setColumnWidth(2,160);
-    ui->safeTableWidget->setColumnWidth(3,224);
+    ui->safeTableWidget->setColumnWidth(3,226);
     for(int i=0;i<14;i++)
     {
         if(i==0||i==8)
@@ -292,6 +294,108 @@ void disposeDialog::safeTableWidgetShow()
         date_2 = new QDateEdit(QDate::currentDate(),this);
         date_2->setCalendarPopup(true);
         ui->safeTableWidget->setCellWidget(10,3,date_2);
+
+        //注意！如果不进行初始化后面调用Item时会崩溃！！！
+        QString strName = QString("");
+        QString strContact = QString("");
+        QString strSystem = QString("");
+        QString strLevel = QString("");
+        QString strWeb = QString("");
+        QString strIp = QString("");
+        QString strService = QString("");
+        QString strData = QString("");
+        QString strOperate = QString("");
+        QString strServer = QString("");
+        QString strData2 = QString("");
+        QString strThird = QString("");
+        QString strTech = QString("");
+        QString strOri = QString("");
+        QString strAtt = QString("");
+        QString strAtta = QString("");
+        QString strEffect = QString("");
+        QString strTimeAndPlace = QString("");
+        QString strDisCom = QString("");
+        QString strDisPerson = QString("");
+
+        QTableWidgetItem *item1 = new QTableWidgetItem(strName);
+        item1->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+        ui->safeTableWidget->setItem(1,1,item1);
+
+        QTableWidgetItem *item2 = new QTableWidgetItem(strContact);
+        item2->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+        ui->safeTableWidget->setItem(1,3,item2);
+
+        QTableWidgetItem *item3 = new QTableWidgetItem(strSystem);
+        item3->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+        ui->safeTableWidget->setItem(2,1,item3);
+
+        QTableWidgetItem *item4 = new QTableWidgetItem(strLevel);
+        item4->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+        ui->safeTableWidget->setItem(2,3,item4);
+
+        QTableWidgetItem *item5 = new QTableWidgetItem(strWeb);
+        item5->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+        ui->safeTableWidget->setItem(3,1,item5);
+
+        QTableWidgetItem *item6 = new QTableWidgetItem(strIp);
+        item6->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+        ui->safeTableWidget->setItem(3,3,item6);
+
+        QTableWidgetItem *item7 = new QTableWidgetItem(strService);
+        item7->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+        ui->safeTableWidget->setItem(4,1,item7);
+
+        QTableWidgetItem *item8 = new QTableWidgetItem(strData);
+        item8->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+        ui->safeTableWidget->setItem(4,3,item8);
+
+        QTableWidgetItem *item9 = new QTableWidgetItem(strOperate);
+        item9->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+        ui->safeTableWidget->setItem(5,1,item9);
+
+        QTableWidgetItem *item10 = new QTableWidgetItem(strServer);
+        item10->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+        ui->safeTableWidget->setItem(5,3,item10);
+
+        QTableWidgetItem *item11 = new QTableWidgetItem(strData2);
+        item11->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+        ui->safeTableWidget->setItem(6,1,item11);
+
+        QTableWidgetItem *item12 = new QTableWidgetItem(strThird);
+        item12->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+        ui->safeTableWidget->setItem(6,3,item12);
+
+        QTableWidgetItem *item13 = new QTableWidgetItem(strTech);
+        item13->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+        ui->safeTableWidget->setItem(7,1,item13);
+
+        QTableWidgetItem *item14 = new QTableWidgetItem(strAtta);
+        item14->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+        ui->safeTableWidget->setItem(11,1,item14);
+
+        QTableWidgetItem *item15 = new QTableWidgetItem(strEffect);
+        item15->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+        ui->safeTableWidget->setItem(12,1,item15);
+
+        QTableWidgetItem *item16 = new QTableWidgetItem(strTimeAndPlace);
+        item16->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+        ui->safeTableWidget->setItem(12,3,item16);
+
+        QTableWidgetItem *item17 = new QTableWidgetItem(strDisCom);
+        item17->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+        ui->safeTableWidget->setItem(13,1,item17);
+
+        QTableWidgetItem *item18 = new QTableWidgetItem(strDisPerson);
+        item18->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+        ui->safeTableWidget->setItem(13,3,item18);
+
+        QTableWidgetItem *item19 = new QTableWidgetItem(strOri);
+        item19->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+        ui->safeTableWidget->setItem(9,3,item19);
+
+        QTableWidgetItem *item20 = new QTableWidgetItem(strAtt);
+        item20->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+        ui->safeTableWidget->setItem(10,1,item20);
     }
 }
 
@@ -304,7 +408,7 @@ void disposeDialog::webTableWidgetShow()
 {
     ui->webTableWidget->setColumnWidth(0,118);
     ui->webTableWidget->setColumnWidth(1,245);
-    ui->webTableWidget->setColumnWidth(2,131);
+    ui->webTableWidget->setColumnWidth(2,133);
     ui->webTableWidget->setColumnWidth(3,245);
     for(int i=0;i<11;i++)
     {
@@ -376,7 +480,7 @@ void disposeDialog::archTableWidgetShow()
 {
     ui->archTableWidget->setColumnWidth(0,118);
     ui->archTableWidget->setColumnWidth(1,255);
-    ui->archTableWidget->setColumnWidth(2,111);
+    ui->archTableWidget->setColumnWidth(2,113);
     ui->archTableWidget->setColumnWidth(3,255);
     ui->archTableWidget->setSpan(1,1,1,3);
     ui->archTableWidget->setSpan(2,1,1,3);
@@ -410,7 +514,7 @@ void disposeDialog::archTableWidgetShow()
 
 void disposeDialog::antiTableWidgetShow()
 {
-    ui->antiTableWidget->setColumnWidth(0,118);
+    ui->antiTableWidget->setColumnWidth(0,120);
     ui->antiTableWidget->setColumnWidth(1,621);
     QSqlQuery query;
     QString strSql = QString("SELECT * FROM web_record_form WHERE id = %1").arg(g_task_id);
@@ -573,7 +677,7 @@ void disposeDialog::attackTableWidgetShow()
     ui->attackTableWidget->setColumnWidth(3,150);
     ui->attackTableWidget->setColumnWidth(0,120);
     ui->attackTableWidget->setColumnWidth(4,110);
-    ui->attackTableWidget->setColumnWidth(5,80);
+    ui->attackTableWidget->setColumnWidth(5,82);
 }
 
 void disposeDialog::anaTableWidgetShow()
@@ -626,9 +730,10 @@ void disposeDialog::anaTableWidgetShow()
     ui->anaTableWidget->setColumnWidth(1,200);
     ui->anaTableWidget->setColumnWidth(2,170);
     ui->anaTableWidget->setColumnWidth(3,120);
-    ui->anaTableWidget->setColumnWidth(4,125);
+    ui->anaTableWidget->setColumnWidth(4,126);
 
 }
+
 
 void disposeDialog::disposeTableWidgetShow()
 {
@@ -636,7 +741,7 @@ void disposeDialog::disposeTableWidgetShow()
     {
         ui->disposeTableWidget->setRowHeight(i,74);
     }
-    ui->disposeTableWidget->setColumnWidth(0,130);
+    ui->disposeTableWidget->setColumnWidth(0,132);
     ui->disposeTableWidget->setColumnWidth(1,633);
     QBoxLayout *labelLayout = new QBoxLayout(QBoxLayout::LeftToRight);
     labelLayout->setMargin(3);
@@ -1648,6 +1753,76 @@ void disposeDialog::on_runToolButton_clicked()
     }
 }
 
+//删除文件夹
+bool clearFolder(const QString &folderFullPath)
+{
+
+    QDir             dir(folderFullPath);
+    QFileInfoList    fileList;
+    QFileInfo        curFile;
+    QFileInfoList    fileListTemp;
+    int            infoNum;
+    int            i;
+    int            j;
+    /* 首先获取目标文件夹内所有文件及文件夹信息 */
+    fileList=dir.entryInfoList(QDir::Dirs|QDir::Files
+                                |QDir::Readable|QDir::Writable
+                                |QDir::Hidden|QDir::NoDotAndDotDot
+                                ,QDir::Name);
+
+    while(fileList.size() > 0)
+    {
+        infoNum = fileList.size();
+
+        for(i = infoNum - 1; i >= 0; i--)
+        {
+            curFile = fileList[i];
+            if(curFile.isFile()) /* 如果是文件，删除文件 */
+            {
+                QFile fileTemp(curFile.filePath());
+                bool ok = fileTemp.remove();
+                if(!ok)
+                {
+                    qWarning()<<"delete file err:"<<curFile.filePath();
+                    return ok;
+                }
+                fileList.removeAt(i);
+            }
+
+            if(curFile.isDir()) /* 如果是文件夹 */
+            {
+                QDir dirTemp(curFile.filePath());
+                fileListTemp = dirTemp.entryInfoList(QDir::Dirs | QDir::Files
+                                                    | QDir::Readable | QDir::Writable
+                                                    | QDir::Hidden | QDir::NoDotAndDotDot
+                                                    , QDir::Name);
+                if(fileListTemp.size() == 0) /* 下层没有文件或文件夹 则直接删除*/
+                {
+                    dirTemp.rmdir(".");
+                    fileList.removeAt(i);
+                }
+                else /* 下层有文件夹或文件 则将信息添加到列表*/
+                {
+                    for(j = 0; j < fileListTemp.size(); j++)
+                    {
+                        if(!(fileList.contains(fileListTemp[j])))
+                        {
+                            fileList.append(fileListTemp[j]);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    bool ifDel = dir.rmdir(".");/*删除目标文件夹,如果只是清空文件夹folderFullPath的内容而不删除folderFullPath本身,则删掉本行即可*/
+    if(!ifDel)
+    {
+        qWarning()<<"delete file err:"<<dir.dirName();
+        return false;
+    }
+    return true;
+}
+
 //删除资产
 void disposeDialog::on_deleHostButton_clicked()
 {
@@ -1679,6 +1854,7 @@ void disposeDialog::on_deleHostButton_clicked()
         return;
     }
     QString name = ui->attackTableWidget->item(row,0)->text();
+    QString strIp = ui->attackTableWidget->item(row,1)->text();
 
     QString strTitle = QString("删除");
     QString strMsg = QString("你确定删除%1吗？").arg(name);
@@ -1700,9 +1876,76 @@ void disposeDialog::on_deleHostButton_clicked()
     else
     {
         qDebug()<<"delete host id:"<<g_task_id<<"name:"<<name.toStdString().c_str();
-        QString action = QString("删除资产");
-        QString state = QString("成功");
-        operateLog(action,state);
+        //删除结果文件夹和文件
+        QString strPath;
+        QString strTaskId = QString::number(g_task_id,10);
+        QString strHostXml =  strTaskId+"_"+strIp; //匹配已解析xml的关键词
+        QString localPath = qApp->applicationDirPath();
+        localPath+="\\config.ini";
+        QSettings settings(localPath,QSettings::IniFormat);
+        strPath = settings.value("autoscan/OnlineScanDir").toString();
+        strIp = strIp.remove(".");
+        strPath = strPath+"\\"+strTaskId+"\\"+strIp;
+        QFile existPath(strPath);
+        if(existPath.exists())
+        {
+            bool ifSuccess = clearFolder(strPath);
+            if(!ifSuccess)
+            {
+                QString strTitle = QString("警告");
+                QString strMsg = QString("删除结果文件失败，请检查是否打开该资产的报告");
+                QString showMsg = "<font color='black'>"+strMsg+"</font>";
+                QMessageBox *WrrMsg = new QMessageBox(QMessageBox::NoIcon, strTitle, showMsg, QMessageBox::Ok, this);
+                if(NULL!=WrrMsg->button(QMessageBox::Ok))
+                {
+                    WrrMsg->button(QMessageBox::Ok)->setText(QString("确定"));
+                }
+                WrrMsg->exec();
+                return;
+            }
+        }
+        //已经解析完的xml也要去删除
+        QString mBakPath = settings.value("autoscan/comfilepath").toString();
+        QStringList online_list;
+        //获取所选文件类型过滤器
+        QStringList filters;
+        filters<<QString("*.xml");
+        QDirIterator dir_iterator1(mBakPath,
+            filters,
+            QDir::Files | QDir::NoSymLinks,
+            QDirIterator::Subdirectories);
+        while(dir_iterator1.hasNext())
+        {
+            dir_iterator1.next();
+            QFileInfo file_info1 =dir_iterator1.fileInfo();
+            QString absolute_file_path1 =file_info1.absoluteFilePath();
+            online_list.append(absolute_file_path1);
+        }
+        QString xmlFile;
+        for(int i=0;i<online_list.size();i++)
+        {
+            xmlFile = online_list[i];
+            int index = xmlFile.indexOf(strHostXml);
+            if(index!=-1)
+            {
+                QFile deleFile(xmlFile);
+                bool ok = deleFile.remove();
+                if(!ok)
+                {
+                    qWarning()<<"delete xmlFile err:"<<xmlFile;
+                    QString strTitle = QString("警告");
+                    QString strMsg = QString("删除结果文件失败，请检查是否打开该资产的报告");
+                    QString showMsg = "<font color='black'>"+strMsg+"</font>";
+                    QMessageBox *WrrMsg = new QMessageBox(QMessageBox::NoIcon, strTitle, showMsg, QMessageBox::Ok, this);
+                    if(NULL!=WrrMsg->button(QMessageBox::Ok))
+                    {
+                        WrrMsg->button(QMessageBox::Ok)->setText(QString("确定"));
+                    }
+                    WrrMsg->exec();
+                    return;
+                }
+            }
+        }
         QString strSql = QString("DELETE FROM host_info WHERE id=%1 AND host_name = '%2'")
                 .arg(g_task_id).arg(name);
         QSqlQuery query;
@@ -1718,6 +1961,13 @@ void disposeDialog::on_deleHostButton_clicked()
         {
             qWarning()<<"sql error:"<<query.lastError()<<" sql:"<<strSql.toStdString().c_str();
         }
+
+        mutex1.lock();
+        if(g_ip_map.contains(strIp))
+        {
+            g_ip_map.remove(strIp);
+        }
+        mutex1.unlock();
 
         strSql = QString("SELECT * FROM check_task WHERE id = %1").arg(g_task_id);
         ok=query.exec(strSql);
@@ -1777,7 +2027,7 @@ void disposeDialog::on_deleHostButton_clicked()
         ui->attackTableWidget->setColumnWidth(3,150);
         ui->attackTableWidget->setColumnWidth(0,120);
         ui->attackTableWidget->setColumnWidth(4,110);
-        ui->attackTableWidget->setColumnWidth(5,80);
+        ui->attackTableWidget->setColumnWidth(5,82);
 
         strSql = QString("SELECT * FROM host_info WHERE id = %1").arg(g_task_id);
         ok = query.exec(strSql);
@@ -1816,16 +2066,11 @@ void disposeDialog::on_deleHostButton_clicked()
         ui->anaTableWidget->setColumnWidth(1,200);
         ui->anaTableWidget->setColumnWidth(2,170);
         ui->anaTableWidget->setColumnWidth(3,120);
-        ui->anaTableWidget->setColumnWidth(4,120);
+        ui->anaTableWidget->setColumnWidth(4,126);
 
-        QSqlQuery query1;
-        QString strSql1 = QString("SELECT * FROM check_task WHERE id = %1").arg(g_task_id);
-        ok = query1.exec(strSql1);
-        if(!ok)
-        {
-            qWarning()<<"sql error:"<<query1.lastError()<<" sql:"<<strSql1.toStdString().c_str();
-        }
-        attcount=query1.size();
+        QString action = QString("删除资产");
+        QString state = QString("成功");
+        operateLog(action,state);
     }
 }
 
@@ -2117,23 +2362,15 @@ void disposeDialog::disposeShow()
     if(!ok)
     {
         qWarning()<<"sql error: "<<query.lastError()<<"sql is: "<<strSql.toStdString().c_str();
-//        QString strTitle = QString("出错");
-//        QString strMsg = QString("数据库出错");
-//        QString showMsg = "<font color='black'>"+strMsg+"</font>";
-//        QMessageBox *WrrMsg = new QMessageBox(QMessageBox::NoIcon, strTitle, showMsg, QMessageBox::Ok, this);
-//        if(NULL!=WrrMsg->button(QMessageBox::Ok))
-//        {
-//            WrrMsg->button(QMessageBox::Ok)->setText(QString("确定"));
-//        }
-//        WrrMsg->exec();
     }
-    QString strHole,strProcess,strReason,strResult;
+    QString strHole,strProcess,strReason,strResult,strOther;
     if(query.next())
     {
         strHole = query.value(1).toString();
         strProcess = query.value(2).toString();
         strReason = query.value(3).toString();
         strResult = query.value(4).toString();
+        strOther = query.value(5).toString();
         QStringList holeList = strHole.split(",");
         for(int i=0;i<holeList.size();i++)
         {
@@ -2201,6 +2438,7 @@ void disposeDialog::disposeShow()
         edit->setText(strProcess);
         edit_2->setText(strReason);
         edit_3->setText(strResult);
+        ui->otherTextEdit->setText(strOther);
     }
 }
 
@@ -2296,6 +2534,21 @@ void disposeDialog::on_checkResButton_clicked()
     {
         QString strTitle = QString("警告");
         QString strMsg = QString("请选择资产");
+        QString showMsg = "<font color='black'>"+strMsg+"</font>";
+        QMessageBox *WrrMsg = new QMessageBox(QMessageBox::NoIcon, strTitle, showMsg, QMessageBox::Ok, this);
+        if(NULL!=WrrMsg->button(QMessageBox::Ok))
+        {
+            WrrMsg->button(QMessageBox::Ok)->setText(QString("确定"));
+        }
+        WrrMsg->exec();
+        ui->checkResButton->setEnabled(true);
+        return;
+    }
+    QString strState = ui->attackTableWidget->item(mRow,5)->text();
+    if(strState==QString("等待启动"))
+    {
+        QString strTitle = QString("提示");
+        QString strMsg = QString("请启动检查工具进行检查");
         QString showMsg = "<font color='black'>"+strMsg+"</font>";
         QMessageBox *WrrMsg = new QMessageBox(QMessageBox::NoIcon, strTitle, showMsg, QMessageBox::Ok, this);
         if(NULL!=WrrMsg->button(QMessageBox::Ok))
@@ -2814,7 +3067,7 @@ void disposeDialog::checkToolStart()
             bool ok = QProcess::startDetached(tool_1,QStringList());
             if(!ok)
             {
-                qWarning()<<"start tool failed!";
+//                qWarning()<<"start tool failed!";
             }
         }
     }
@@ -2836,7 +3089,7 @@ void disposeDialog::checkToolStart()
             bool ok = QProcess::startDetached(tool_2,QStringList());
             if(!ok)
             {
-                qWarning()<<"start tool failed!";
+//                qWarning()<<"start tool failed!";
             }
         }
     }
@@ -2858,7 +3111,7 @@ void disposeDialog::checkToolStart()
             bool ok = QProcess::startDetached(tool_3,QStringList());
             if(!ok)
             {
-                qWarning()<<"start tool failed!";
+//                qWarning()<<"start tool failed!";
             }
         }
     }
@@ -2880,7 +3133,7 @@ void disposeDialog::checkToolStart()
             bool ok = QProcess::startDetached(tool_4,QStringList());
             if(!ok)
             {
-                qWarning()<<"start tool failed!";
+//                qWarning()<<"start tool failed!";
             }
         }
     }
@@ -2969,6 +3222,7 @@ void disposeDialog::on_chooseButton_clicked()
     }
     doc.setContent(&file3);
     file3.close();
+
     QDomElement docElem = doc.documentElement();
     QDomNodeList nodeswitch=docElem.elementsByTagName("tool_info");
     QDomNode node = nodeswitch.item(0);
@@ -2978,7 +3232,28 @@ void disposeDialog::on_chooseButton_clicked()
     QDomNodeList nodeswitch_2=docElem.elementsByTagName("operation_info");
     QDomNode node_2 = nodeswitch_2.item(0);
     QDomElement elemnodeswitch_2=node_2.toElement();
-    QString destIp = qPrintable(elemnodeswitch_2.attribute("dest_ip"));
+    QString destIp = qPrintable(elemnodeswitch_2.attribute("src_ip"));
+    destIp = destIp+strIp+";";
+    elemnodeswitch_2.setAttribute("src_ip",destIp);
+
+    QString strTaskId = QString::number(g_task_id,10);
+
+    QDomNodeList node_list = docElem.elementsByTagName("scheme");
+    QDomNode schNode = node_list.item(0);
+    QDomNodeList schNode_list = schNode.childNodes();
+    QDomNode oldNode = schNode_list.at(1);
+    QDomElement oldEle = oldNode.toElement();
+    oldEle.setAttribute("taskcode",strTaskId);
+    QDomNode newnode = schNode_list.at(1);
+    schNode.replaceChild(newnode,oldNode);
+
+    if(!file3.open(QFile::WriteOnly|QFile::Truncate))
+        return;
+    //输出到文件
+    QTextStream out_stream(&file3);
+    doc.save(out_stream,4); //缩进4格
+    file3.close();
+
     if(toolCode==strCode)
     {
     }
@@ -3028,6 +3303,7 @@ void disposeDialog::on_chooseButton_clicked()
                                                         "AND run_tool='%2'").arg(strHost).arg(strName);
                 QSqlQuery query;
                 query.exec(strSql);
+
                 QString strTitle = QString("关联成功");
                 QString strMsg = QString("是否打开生成的word文档？");
                 QString showMsg = "<font color='black'>"+strMsg+"</font>";
@@ -3102,6 +3378,7 @@ void disposeDialog::checkResultSlot()
         return;
     }
     QString strIp,strName,strCode;
+    mutex1.lock();
     while(query.next())
     {
         strIp = query.value(2).toString();
@@ -3125,6 +3402,7 @@ void disposeDialog::checkResultSlot()
             g_ip_map.insert(strIp,strList);
         }
     }
+    mutex1.unlock();
     attackTableWidgetShow();
 }
 
@@ -3135,7 +3413,7 @@ void disposeDialog::logTableShow()
     {
         ui->logTableWidget->setColumnWidth(i,120);
     }
-    ui->logTableWidget->setColumnWidth(3,404);
+    ui->logTableWidget->setColumnWidth(3,406);
 }
 
 void disposeDialog::finisgedSlot(QNetworkReply *reply)
@@ -3178,7 +3456,7 @@ void disposeDialog::finisgedSlot(QNetworkReply *reply)
                              {
                                  qlonglong nTime = alertValue.toVariant().toLongLong();
                                  QDateTime time = QDateTime::fromMSecsSinceEpoch(nTime);
-                                 strTime = time.toString("yyyy-MM-dd hh:mm:ss ddd");
+                                 strTime = time.toString("yyyy-MM-dd hh:mm ddd");
                                  QTableWidgetItem *item1 = new QTableWidgetItem(strTime);
                                  ui->logTableWidget->setItem(i,1,item1);
                              }

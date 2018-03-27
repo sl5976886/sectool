@@ -109,6 +109,20 @@ void ForgetDialog::on_okButton_clicked()
         WrrMsg->exec();
         return;
     }
+    else if(ui->questionLineEdit->text().length()==0)
+    {
+        QString strTitle = QString("警告");
+        QString strMsg = QString("未输入密保答案");
+        QString showMsg = "<font color='black'>"+strMsg+"</font>";
+        QMessageBox *WrrMsg = new QMessageBox(QMessageBox::NoIcon, strTitle, showMsg, QMessageBox::Ok, this);
+        if(NULL!=WrrMsg->button(QMessageBox::Ok))
+        {
+            WrrMsg->button(QMessageBox::Ok)->setText(QString("确定"));
+        }
+        WrrMsg->exec();
+        ui->questionLineEdit->setFocus();
+        return;
+    }
     else
     {
         qDebug()<<"reset password,useName: "<<ui->userLineEdit->text().toStdString().c_str();

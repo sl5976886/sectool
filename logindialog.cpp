@@ -59,11 +59,10 @@ void LoginDialog::initStyle()
 //注册按钮
 void LoginDialog::on_pushButton_clicked()
 {
-    this->hide();
     RegisterDialog rw(this);
+    rw.setModal(true);
     rw.show();
     rw.exec();
-    this->show();
 }
 
 //判断账号是否锁定
@@ -324,6 +323,13 @@ void LoginDialog::on_LoginPushButton_clicked()
     QString action = QString("用户登录");
     QString state = QString("成功");
     operateLog(action,state);
+
+    strSql = QString("UPDATE sys_set SET wrong_times=0 WHERE user_name='%1'").arg(g_user_name);
+    ok = query.exec(strSql);
+    if(!ok)
+    {
+        qWarning()<<"sql err:"<<query.lastError();
+    }
     this->hide();
     mw->show();
     mw->exec();
@@ -333,9 +339,8 @@ void LoginDialog::on_LoginPushButton_clicked()
 //忘记密码按钮
 void LoginDialog::on_forgetPushButton_clicked()
 {
-    this->hide();
     ForgetDialog fw(this);
+    fw.setModal(true);
     fw.show();
     fw.exec();
-    this->show();
 }

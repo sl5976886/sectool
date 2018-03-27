@@ -16,8 +16,8 @@
         <file>qss/psblack/checkbox_unchecked_disable.png</file>
         <file>qss/psblack/radiobutton_checked.png</file>
         <file>qss/psblack/radiobutton_checked_disable.png</file>
+        <file>qss/psblack.css</file>
         <file>qss/psblack/radiobutton_unchecked.png</file>
         <file>qss/psblack/radiobutton_unchecked_disable.png</file>
-        <file>qss/psblack.css</file>
     </qresource>
 </RCC>

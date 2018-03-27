@@ -17,6 +17,8 @@ public:
     QPushButton *certainButton;
     void tableInit();
     void setButtonStyle();
+    void getTaskId(int id);
+    int mTaskId;
 
 private slots:
     void certain_click();

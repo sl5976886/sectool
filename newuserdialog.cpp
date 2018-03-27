@@ -33,7 +33,7 @@ newUserDialog::newUserDialog(QWidget *parent) :
     mLayout->setMargin(0);
     ui->buttonLabel->setLayout(mLayout);
 
-    QObject::connect(certainButton,SIGNAL(clicked()),this,SLOT(on_determineButton_clicked()));
+    QObject::connect(certainButton,SIGNAL(clicked()),this,SLOT(determineButton_slot()));
 }
 
 newUserDialog::~newUserDialog()
@@ -41,7 +41,7 @@ newUserDialog::~newUserDialog()
     delete ui;
 }
 
-void newUserDialog::on_determineButton_clicked()
+void newUserDialog::determineButton_slot()
 {
     int ifSuccess = 0;
     if(ui->nameLineEdit->text().length()==0)
@@ -247,8 +247,46 @@ void newUserDialog::on_determineButton_clicked()
 
 void newUserDialog::comBoxInit()
 {
+//    QSqlQuery query;
+//    QString strSql = QString("SELECT com_name FROM emergency_company");
+//    query.exec(strSql);
+//    ui->comboBox->setFixedHeight(20);
+//    while(query.next())
+//    {
+//        QString name = query.value(0).toString();
+//        QPixmap pixmap(1, ui->comboBox->height());
+//        pixmap.fill(Qt::transparent);
+//        QIcon icon(pixmap);
+//        ui->comboBox->setIconSize(QSize(1,ui->comboBox->height()));
+//        ui->comboBox->addItem(icon,name);
+//    }
     QSqlQuery query;
-    QString strSql = QString("SELECT com_name FROM emergency_company");
+    QString strSql = QString("SELECT ORGCODE FROM register_user WHERE user_name='%1'").arg(g_user_name);
+    QString orgCode;
+    bool ok = query.exec(strSql);
+    if(ok)
+    {
+        if(query.next())
+        {
+            orgCode = query.value(0).toString();
+            orgCode = orgCode.mid(0,2);
+        }
+    }
+    else
+    {
+        qWarning()<<"sql err:"<<query.lastError();
+        QString strTitle = QString("错误");
+        QString strMsg = QString("获取单位信息失败，请检查数据库连接");
+        QString showMsg = "<font color='black'>"+strMsg+"</font>";
+        QMessageBox *WrrMsg = new QMessageBox(QMessageBox::NoIcon, strTitle, showMsg, QMessageBox::Ok, this);
+        if(NULL!=WrrMsg->button(QMessageBox::Ok))
+        {
+            WrrMsg->button(QMessageBox::Ok)->setText(QString("确定"));
+        }
+        WrrMsg->exec();
+    }
+
+    strSql = QString("SELECT ORGNAME FROM cfg_orgcode WHERE ORGCODE LIKE '%1%'").arg(orgCode);
     query.exec(strSql);
     ui->comboBox->setFixedHeight(20);
     while(query.next())
@@ -260,11 +298,6 @@ void newUserDialog::comBoxInit()
         ui->comboBox->setIconSize(QSize(1,ui->comboBox->height()));
         ui->comboBox->addItem(icon,name);
     }
-//    ui->comboBox->setStyleSheet("QComboBox{border: 1px solid gray;border-radius: 3px;padding: 1px 2px 1px 2px; min-width: 9em;}"
-//                                "QComboBox::drop-down{subcontrol-origin: padding;subcontrol-position: top right;"
-//                                "width: 20px;border-left-width: 1px;border-left-color: darkgray;border-left-style: solid;"
-//                                " border-top-right-radius: 3px; border-bottom-right-radius: 3px;}"
-//                                "QComboBox::down-arrow{ image: url(:/combox/image/combox/arrow.png);}");
 }
 
 

@@ -4,6 +4,7 @@
 #include "newcomdialog.h"
 #include "commonfunction.h"
 #include "cleanlogdialog.h"
+#include "noeditdelegate.h"
 #include <QScrollBar>
 #include <QMessageBox>
 #include <QSqlError>
@@ -13,6 +14,8 @@
 #include <QDomDocument>
 #include <QFile>
 #include <QFileDialog>
+#include <QToolButton>
+#include <QCalendarWidget>
 
 sysManageDialog::sysManageDialog(QWidget *parent) :
     QDialog(parent),
@@ -43,6 +46,8 @@ sysManageDialog::sysManageDialog(QWidget *parent) :
     operateLog(action,state);
     ui->startTimeEdit->setCalendarPopup(true);
     ui->endTimeEdit->setCalendarPopup(true);
+    ui->startTimeEdit->calendarWidget()->findChild<QToolButton*>("qt_calendar_monthbutton")->setEnabled(false);
+    ui->endTimeEdit->calendarWidget()->findChild<QToolButton*>("qt_calendar_monthbutton")->setEnabled(false);
     ui->endTimeEdit->setDateTime(QDateTime::currentDateTime());
     time_t time = ui->endTimeEdit->dateTime().toTime_t();
     GetAsciiTime(time,strEndTime,128);
@@ -71,7 +76,6 @@ void sysManageDialog::userTableViewInit()
         ui->noUserLabel->setVisible(false);
     }
     userModel->removeColumn(2);
-//    userModel->removeColumn(0);
     userModel->setHeaderData(0,Qt::Horizontal,QString("用户ID"));
     userModel->setHeaderData(1,Qt::Horizontal,QString("用户名"));
     userModel->setHeaderData(2,Qt::Horizontal,QString("调查单位"));
@@ -82,6 +86,13 @@ void sysManageDialog::userTableViewInit()
     userModel->setHeaderData(7,Qt::Horizontal,QString("创建时间"));
     userModel->setHeaderData(8,Qt::Horizontal,QString("状态"));
     ui->userTableView->setModel(userModel);
+    //设置无法编辑
+    NoEditDelegate *mEditDele = new NoEditDelegate();
+    ui->userTableView->setItemDelegateForColumn(2,mEditDele);
+
+    ui->userTableView->hideColumn(9);
+    ui->userTableView->hideColumn(10);
+    ui->userTableView->hideColumn(11);
     ui->userTableView->setColumnWidth(0,50);
     ui->userTableView->setColumnWidth(7,120);
     ui->userTableView->verticalHeader()->setVisible(false);
@@ -98,7 +109,7 @@ void sysManageDialog::userTableViewInit()
     ui->comTableView->hideColumn(0);
     ui->comTableView->setColumnWidth(1,222);
     ui->comTableView->setColumnWidth(2,222);
-    ui->comTableView->setColumnWidth(3,105);
+    ui->comTableView->setColumnWidth(3,107);
     ui->comTableView->verticalHeader()->setVisible(false);
 }
 
@@ -431,7 +442,19 @@ void sysManageDialog::on_inquiryButton_clicked()
     char nowEndTime[128] = { 0 };
     time_t time_2 = ui->endTimeEdit->dateTime().toTime_t();
     GetAsciiTime(time_2,nowEndTime,128);
-    //char strTime[128] = "2017/01/01 00:00:00 ";
+    if(time>time_2)
+    {
+        QString strTitle = QString("警告");
+        QString strMsg = QString("结束时间需要晚于起始时间");
+        QString showMsg = "<font color='black'>"+strMsg+"</font>";
+        QMessageBox *WrrMsg = new QMessageBox(QMessageBox::NoIcon, strTitle, showMsg, QMessageBox::Ok, this);
+        if(NULL!=WrrMsg->button(QMessageBox::Ok))
+        {
+            WrrMsg->button(QMessageBox::Ok)->setText(QString("确定"));
+        }
+        WrrMsg->exec();
+        return;
+    }
 
     logModel = new QSqlTableModel(this);
     logModel->setTable("operate_log");
@@ -456,10 +479,12 @@ void sysManageDialog::on_inquiryButton_clicked()
     logModel->setHeaderData(3,Qt::Horizontal,QString("状态"));
     ui->logTableView->setModel(logModel);
     ui->logTableView->verticalHeader()->setVisible(false);
+    ui->logTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->logTableView->setSelectionMode(QAbstractItemView::NoSelection);
     ui->logTableView->setColumnWidth(0,150);
     ui->logTableView->setColumnWidth(1,150);
     ui->logTableView->setColumnWidth(2,180);
-    ui->logTableView->setColumnWidth(3,120);
+    ui->logTableView->setColumnWidth(3,139);
 }
 
 //清空日志
@@ -472,10 +497,12 @@ void sysManageDialog::on_clearButton_clicked()
     cleanModel->setHeaderData(3,Qt::Horizontal,QString("状态"));
     ui->logTableView->setModel(cleanModel);
     ui->logTableView->verticalHeader()->setVisible(false);
+    ui->logTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->logTableView->setSelectionMode(QAbstractItemView::NoSelection);
     ui->logTableView->setColumnWidth(0,150);
     ui->logTableView->setColumnWidth(1,150);
     ui->logTableView->setColumnWidth(2,180);
-    ui->logTableView->setColumnWidth(3,120);
+    ui->logTableView->setColumnWidth(3,139);
 }
 
 //导出日志

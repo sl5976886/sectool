@@ -106,8 +106,8 @@ left:10px;
 border-style:none;
 border:1px solid #242424;
 color:#DCDCDC;
+min-height:15px;
 padding:5px;
-min-height:10px;
 border-radius:5px;
 background:qlineargradient(spread:pad,x1:0,y1:0,x2:0,y2:1,stop:0 #484848,stop:1 #383838);
 }
@@ -151,11 +151,11 @@ height:15px;
 }
 
 QRadioButton::indicator::unchecked{
-image:url(:/qss/psblack/radiobutton_unchecked_disable.png);
+image:url(:/qss/psblack/radiobutton_unchecked.png);
 }
 
 QRadioButton::indicator::unchecked:disabled{
-image:url(:/qss/psblack/radiobutton_unchecked.png);
+image:url(:/qss/psblack/radiobutton_unchecked_disable.png);
 }
 
 QRadioButton::indicator::checked{
@@ -421,7 +421,7 @@ border:0px;
 }
 
 QTreeView,QListView,QTableView,QTabWidget::pane{
-border:1px solid #242424;
+border:0px solid #242424;
 selection-background-color:#646464;
 selection-color:#DCDCDC;
 alternate-background-color:#525252;

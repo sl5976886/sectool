@@ -363,7 +363,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>确定</string>
@@ -379,7 +379,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 8pt &quot;微软雅黑&quot;;</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string>取消</string>
@@ -396,7 +396,7 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_8">
     <item>
-     <widget class="QDateEdit" name="dateEdit">
+     <widget class="QDateTimeEdit" name="dateEdit">
       <property name="dateTime">
        <datetime>
         <hour>0</hour>
@@ -568,7 +568,7 @@
    <property name="geometry">
     <rect>
      <x>433</x>
-     <y>115</y>
+     <y>116</y>
      <width>48</width>
      <height>16</height>
     </rect>
@@ -594,7 +594,7 @@
    <property name="geometry">
     <rect>
      <x>433</x>
-     <y>149</y>
+     <y>150</y>
      <width>48</width>
      <height>16</height>
     </rect>
@@ -607,7 +607,7 @@
    <property name="geometry">
     <rect>
      <x>433</x>
-     <y>184</y>
+     <y>186</y>
      <width>48</width>
      <height>16</height>
     </rect>
